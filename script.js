@@ -75,6 +75,7 @@ function editItem(id) {
   const item = items.find((i) => i.id === id);
   if (!item) return;
 
+  pendingDeleteId = null;
   idInput.value = item.id;
   nameInput.value = item.name;
   colorInput.value = item.color;
@@ -84,10 +85,13 @@ function editItem(id) {
   nameInput.focus();
 }
 
+let pendingDeleteId = null;
+
 function deleteItem(id) {
   items = items.filter((i) => i.id !== id);
   saveItems();
   if (idInput.value === id) resetForm();
+  pendingDeleteId = null;
   render();
 }
 
@@ -128,10 +132,16 @@ function render() {
 
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "btn btn-danger btn-small";
-    deleteBtn.textContent = "Excluir";
-    deleteBtn.addEventListener("click", () => {
-      if (confirm(`Excluir "${item.name}"?`)) deleteItem(item.id);
-    });
+    if (pendingDeleteId === item.id) {
+      deleteBtn.textContent = "Confirmar?";
+      deleteBtn.addEventListener("click", () => deleteItem(item.id));
+    } else {
+      deleteBtn.textContent = "Excluir";
+      deleteBtn.addEventListener("click", () => {
+        pendingDeleteId = item.id;
+        render();
+      });
+    }
 
     actions.appendChild(editBtn);
     actions.appendChild(deleteBtn);
