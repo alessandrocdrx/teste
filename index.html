@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRUD Colorido</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>🎨 CRUD Colorido</h1>
+      <p>Gerencie seus itens de forma simples e colorida</p>
+    </header>
+
+    <form id="item-form" class="item-form">
+      <input type="hidden" id="item-id" />
+
+      <div class="field">
+        <label for="item-name">Nome</label>
+        <input type="text" id="item-name" placeholder="Ex: Estudar JavaScript" required />
+      </div>
+
+      <div class="field">
+        <label for="item-color">Cor</label>
+        <select id="item-color">
+          <option value="red">Vermelho</option>
+          <option value="orange">Laranja</option>
+          <option value="yellow">Amarelo</option>
+          <option value="green" selected>Verde</option>
+          <option value="blue">Azul</option>
+          <option value="purple">Roxo</option>
+          <option value="pink">Rosa</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="item-priority">Prioridade</label>
+        <select id="item-priority">
+          <option value="baixa">Baixa</option>
+          <option value="media" selected>Média</option>
+          <option value="alta">Alta</option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" id="submit-btn" class="btn btn-primary">Adicionar</button>
+        <button type="button" id="cancel-btn" class="btn btn-secondary hidden">Cancelar</button>
+      </div>
+    </form>
+
+    <div class="toolbar">
+      <input type="text" id="search-input" placeholder="🔍 Buscar item..." />
+      <span id="counter" class="counter">0 itens</span>
+    </div>
+
+    <ul id="item-list" class="item-list"></ul>
+
+    <p id="empty-state" class="empty-state hidden">Nenhum item por aqui. Adicione o primeiro! ✨</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
