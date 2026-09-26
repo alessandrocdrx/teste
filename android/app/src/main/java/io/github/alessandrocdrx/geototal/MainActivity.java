@@ -1,4 +1,8 @@
-package io.github.alessandrocdrx.globo;
+/*
+ * geoTotal — Copyright 2026 alessandrocdrx
+ * SPDX-License-Identifier: Apache-2.0
+ */
+package io.github.alessandrocdrx.geototal;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -31,7 +35,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
 /**
- * Abre o app "Globo Terrestre: Países e Capitais" (assets/www/index.html) num WebView.
+ * Abre o geoTotal (globo "Países e Capitais") (assets/www/index.html) num WebView.
  *
  * Os arquivos são servidos a partir de https://appassets.androidplatform.net/ para que a
  * página tenha uma origem https estável: assim localStorage e IndexedDB (progresso do

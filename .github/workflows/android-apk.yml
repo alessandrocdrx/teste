@@ -5,6 +5,8 @@ on:
     branches: ['**']
     tags: ['v*']
     paths:
+      - 'LICENSE'
+      - 'NOTICE'
       - 'android/**'
       - 'web/**'
       - 'scripts/**'
@@ -35,12 +37,12 @@ jobs:
         run: ./gradlew --no-daemon assembleDebug
 
       - name: Renomear APK
-        run: cp android/app/build/outputs/apk/debug/app-debug.apk globo-paises-capitais.apk
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk geototal.apk
 
       - uses: actions/upload-artifact@v4
         with:
-          name: globo-paises-capitais-apk
-          path: globo-paises-capitais.apk
+          name: geototal-apk
+          path: geototal.apk
 
       # Publica em Releases com link fixo quando se cria uma tag v* ou quando o commit
       # tem "[release]" na mensagem (aí a tag v<versionName> é criada pelo próprio workflow).
@@ -54,10 +56,10 @@ jobs:
         with:
           tag_name: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || steps.ver.outputs.tag }}
           target_commitish: ${{ github.sha }}
-          name: Globo Terrestre ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || steps.ver.outputs.tag }}
+          name: geoTotal ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || steps.ver.outputs.tag }}
           body: |
-            APK do app **Globo Terrestre: Países e Capitais** (funciona sem internet).
+            **geoTotal**, criado por [alessandrocdrx](https://github.com/alessandrocdrx). Código aberto sob a licença Apache 2.0. Funciona sem internet.
 
-            Baixe `globo-paises-capitais.apk` abaixo no celular, toque nele e permita "Instalar apps desconhecidos".
+            Baixe `geototal.apk` abaixo no celular (pelo Chrome), toque nele e permita "Instalar apps desconhecidos".
           make_latest: true
-          files: globo-paises-capitais.apk
+          files: geototal.apk

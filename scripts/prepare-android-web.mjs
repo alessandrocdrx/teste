@@ -1,13 +1,16 @@
-// Gera android/app/src/main/assets/www/index.html a partir de web/globo-paises-capitais.html:
+// geoTotal — Copyright 2026 alessandrocdrx
+// SPDX-License-Identifier: Apache-2.0
+// Gera android/app/src/main/assets/www/index.html a partir de web/geototal.html:
 // - carrega d3, topojson, datamaps e os estados do Brasil de assets/www/lib (funciona offline),
 //   mantendo os CDNs como reserva;
-// - injeta scripts/android-shim.js (salvar CSV, imprimir e botão voltar no Android).
+// - injeta scripts/android-shim.js (salvar CSV, imprimir e botão voltar no Android);
+// - copia LICENSE e NOTICE para dentro do APK, como pede a licença Apache 2.0.
 // Uso: node scripts/prepare-android-web.mjs
-import { readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
-const src = root + 'web/globo-paises-capitais.html';
+const src = root + 'web/geototal.html';
 const out = root + 'android/app/src/main/assets/www/index.html';
 
 let html = readFileSync(src, 'utf8');
@@ -28,4 +31,5 @@ if (!html.includes('<head>')) throw new Error('Não achei <head> no HTML');
 html = html.replace('<head>', `<head>\n<script>\n${shim}</script>`);
 
 writeFileSync(out, html);
+for (const f of ['LICENSE', 'NOTICE']) copyFileSync(root + f, root + `android/app/src/main/assets/www/${f}`);
 console.log(`Gerado ${out}`);

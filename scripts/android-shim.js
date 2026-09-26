@@ -1,3 +1,7 @@
+/*
+ * geoTotal — Copyright 2026 alessandrocdrx
+ * SPDX-License-Identifier: Apache-2.0
+ */
 /* Injetado no início do index.html do APK: liga a página às funções nativas do Android
    (window.AndroidBridge, definido em MainActivity.java). */
 (function(){
