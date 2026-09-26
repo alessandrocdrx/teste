@@ -12,8 +12,12 @@ do mundo (datamaps) e os estados do Brasil (amCharts geodata) estão em `app/src
    app que você usou para abrir (Arquivos, Chrome, Drive...).
 
 Para rodar o build manualmente: Actions → APK Android → **Run workflow**.
-Para ter um link fixo de download: crie uma tag (`git tag v1.0 && git push origin v1.0`) e o APK
-aparece na página **Releases** do repositório.
+**Link direto da versão mais recente** (abre no celular e baixa o APK, sem zip):
+https://github.com/alessandrocdrx/teste/releases/latest/download/globo-paises-capitais.apk
+
+Para publicar uma versão nova em Releases: aumente `versionName` em `app/build.gradle` e faça um
+commit com `[release]` na mensagem (o workflow cria a tag `v<versionName>`), ou envie você mesmo
+uma tag (`git tag v1.1 && git push origin v1.1`).
 
 ## Compilar no próprio computador
 
@@ -34,7 +38,8 @@ Ou abra a pasta `android/` no Android Studio e use **Run ▶** com o celular con
 2. Rode `node scripts/prepare-android-web.mjs` (gera `android/app/src/main/assets/www/index.html`).
 3. Aumente `versionCode` / `versionName` em `android/app/build.gradle` para o Android aceitar
    instalar por cima da versão anterior sem perder os dados.
-4. Faça commit e push; o workflow gera o APK novo.
+4. Faça commit e push; o workflow gera o APK novo (com `[release]` na mensagem, ele também
+   publica em Releases).
 
 ## O que muda em relação ao artefato no navegador
 

@@ -42,8 +42,22 @@ jobs:
           name: globo-paises-capitais-apk
           path: globo-paises-capitais.apk
 
-      - name: Publicar na página de Releases (tags v*)
-        if: startsWith(github.ref, 'refs/tags/v')
+      # Publica em Releases com link fixo quando se cria uma tag v* ou quando o commit
+      # tem "[release]" na mensagem (aí a tag v<versionName> é criada pelo próprio workflow).
+      - name: Versão do app
+        id: ver
+        run: echo "tag=v$(sed -n "s/.*versionName '\\(.*\\)'.*/\\1/p" android/app/build.gradle)" >> "$GITHUB_OUTPUT"
+
+      - name: Publicar na página de Releases
+        if: startsWith(github.ref, 'refs/tags/v') || contains(github.event.head_commit.message, '[release]')
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || steps.ver.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          name: Globo Terrestre ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || steps.ver.outputs.tag }}
+          body: |
+            APK do app **Globo Terrestre: Países e Capitais** (funciona sem internet).
+
+            Baixe `globo-paises-capitais.apk` abaixo no celular, toque nele e permita "Instalar apps desconhecidos".
+          make_latest: true
           files: globo-paises-capitais.apk
