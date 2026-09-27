@@ -53,7 +53,9 @@ export class TourLoader {
 
   _json(url) {
     if (!this._cache.has(url)) {
-      const promise = fetch(url, { cache: 'no-store' }).then((res) => {
+      // Build de arquivo único (npm run build:single): os JSON vêm embutidos na página.
+      const embedded = window.__TOUR_FILES__?.[url.slice(new URL('.', this.tourUrl).href.length)];
+      const promise = embedded ? Promise.resolve(embedded) : fetch(url, { cache: 'no-store' }).then((res) => {
         if (!res.ok) throw new Error(`${res.status} ao carregar ${url}`);
         return res.json();
       });

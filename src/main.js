@@ -116,7 +116,11 @@ function writeHash() {
     if (!current) return;
     const { yaw, pitch, fov } = viewer.view;
     const hash = `#cena=${current.scene.id}&yaw=${yaw.toFixed(1)}&pitch=${pitch.toFixed(1)}&fov=${fov.toFixed(0)}`;
-    history.replaceState(null, '', hash);
+    try {
+      history.replaceState(null, '', hash);
+    } catch {
+      // Alguns ambientes (iframes restritos) não permitem alterar a URL.
+    }
   }, 300);
 }
 
