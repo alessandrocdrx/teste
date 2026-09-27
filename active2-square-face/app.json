@@ -1,0 +1,51 @@
+{
+  "configVersion": "v3",
+  "app": {
+    "appId": 1000001,
+    "appName": "Active2 Neon",
+    "appType": "watchface",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    },
+    "vender": "alessandro",
+    "description": "Watchface digital personalizavel para Amazfit Active 2 (Square)",
+    "icon": "images/preview.png",
+    "cover": ["images/preview.png"]
+  },
+  "permissions": [
+    "data:user.hd.step",
+    "data:user.hd.heart_rate"
+  ],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "3.0",
+      "target": "3.0",
+      "minVersion": "3.0"
+    }
+  },
+  "targets": {
+    "active2-square": {
+      "module": {
+        "watchface": {
+          "path": "watchface/active2-square/index",
+          "main": 1,
+          "editable": 0,
+          "lockscreen": 1
+        }
+      },
+      "platforms": [
+        { "name": "active2-square", "deviceSource": 10223872 },
+        { "name": "active2-square-1", "deviceSource": 10223873 },
+        { "name": "active2-square-3", "deviceSource": 10223875 }
+      ],
+      "designWidth": 390
+    }
+  },
+  "i18n": {
+    "en-US": { "name": "Active2 Neon" },
+    "pt-BR": { "name": "Active2 Neon" }
+  },
+  "defaultLanguage": "en-US",
+  "debug": false
+}
