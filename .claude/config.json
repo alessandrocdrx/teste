@@ -1,0 +1,103 @@
+{
+  "project": "Mercado Municipal 360° + Mapa Interativo",
+  "owner": "alessandrocdrx",
+  "version": "1.0.0",
+  "phase": 1,
+  "tokenOptimization": {
+    "enabled": true,
+    "strategies": [
+      "prompt_caching",
+      "memory_compression",
+      "structured_json_output",
+      "dynamic_context_injection",
+      "batch_processing"
+    ],
+    "expectedSavings": "85%"
+  },
+  "outputFormat": {
+    "default": "json_schema",
+    "fallback": "markdown",
+    "structured": true
+  },
+  "memoryCompression": {
+    "enabled": true,
+    "maxTokensPerSection": 500,
+    "summaryRatio": 0.1
+  },
+  "contextInjection": {
+    "enabled": true,
+    "relevanceThreshold": 0.7,
+    "dynamicSelection": true
+  },
+  "skills": {
+    "blocklist-timer": {
+      "enabled": false,
+      "status": "planned"
+    },
+    "vendor-manager": {
+      "enabled": true,
+      "commands": [
+        "vendor add",
+        "vendor update",
+        "vendor validate",
+        "vendor search",
+        "vendor export"
+      ]
+    },
+    "roadmap-tracker": {
+      "enabled": false,
+      "status": "planned"
+    },
+    "planta-waypoints": {
+      "enabled": false,
+      "status": "phase_2"
+    },
+    "image-blend": {
+      "enabled": false,
+      "status": "phase_3"
+    }
+  },
+  "connectors": {
+    "google_drive": {
+      "enabled": true,
+      "status": "active",
+      "syncInterval": "automatic"
+    },
+    "github": {
+      "enabled": true,
+      "status": "active",
+      "branch": "claude/mercado-street-view-modular-4sz1jy"
+    },
+    "dji_flight_hub": {
+      "enabled": false,
+      "status": "phase_2"
+    }
+  },
+  "phase1": {
+    "tasks": [
+      {
+        "id": 1,
+        "name": "Validar & expandir mp.mjs",
+        "description": "Revisar 95+ vendors: contatos, coordenadas, categorias",
+        "estimatedTime": "40 min",
+        "status": "in_progress"
+      },
+      {
+        "id": 2,
+        "name": "Criar schema de dados melhorado",
+        "description": "Adicionar campos: id, floor, box_number, phone, website, tags",
+        "estimatedTime": "30 min",
+        "status": "completed"
+      },
+      {
+        "id": 3,
+        "name": "Criar sistema de busca/filtro",
+        "description": "Frontend JS simples: buscar por nome, categoria, andar",
+        "estimatedTime": "40 min",
+        "status": "completed"
+      }
+    ],
+    "totalEstimatedTime": "110 min",
+    "completionDate": null
+  }
+}
