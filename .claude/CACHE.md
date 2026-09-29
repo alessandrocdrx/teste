@@ -82,7 +82,7 @@ Aqui está todo o contexto do projeto...
 ```
 Contexto relevante para "validar vendors":
 - Phase 1: ✅ Completo
-- Vendors: 95 normalizados
+- Vendors: 183 normalizados
 - Status: Pronto Fase 2
 (500 tokens comprimidos)
 ```
@@ -154,7 +154,7 @@ $ time curl -X POST https://api.anthropic.com/... \
 
 ```
 Eu sou um vigilante do Mercado Municipal de Curitiba, com TEA nível 2 e TDAH. 
-Estou desenvolvendo um tour 360° modular. Tenho 95 vendors com dados estruturados. 
+Estou desenvolvendo um tour 360° modular. Tenho 183 vendors com dados estruturados. 
 Preciso validar contatos, coordenadas e categorias. Como faço isso?
 ```
 **Tokens:** 500 tokens de contexto + 200 de query = 700 tokens

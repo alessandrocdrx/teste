@@ -19,9 +19,9 @@ export class MemoryCompressor {
         currentPhase: 1,
       },
       data: {
-        vendors: 95,
-        contacts: '89% completos',
-        categories: '95% completas',
+        vendors: 183,
+        contacts: '87% com info (160 de 183)',
+        categories: '92% (168 de 183)',
         coordinates: 'Validadas',
       },
       phase1: {
@@ -95,7 +95,7 @@ export class MemoryCompressor {
     return {
       profile: 'Vigilante, TEA+TDAH, blocos 25-40min, português BR',
       project: 'Tour 360° SaaS, R$ 1.2-1.5k/mês, Mercado Municipal',
-      phase1: '✅ Completo: 95 vendors validados, índices + busca',
+      phase1: '✅ Completo: 183 vendors validados, índices + busca',
       action: '⏳ Pedir plantas Prefeitura',
     };
   }

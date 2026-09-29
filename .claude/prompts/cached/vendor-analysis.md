@@ -61,9 +61,9 @@
 
 ## Validação
 
-✅ 95 vendors normalizados  
-✅ Contatos: ~85 (89%)  
-✅ Categorias: ~90 (95%)  
+✅ 183 vendors normalizados  
+✅ Contatos: 160 de 183 (87%)  
+✅ Categorias: 168 de 183 (92%)  
 ✅ Coordenadas: Todas validadas  
 
 ## Índices de Busca

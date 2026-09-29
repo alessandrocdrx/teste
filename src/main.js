@@ -8,6 +8,7 @@ import { Hotspots } from './ui/Hotspots.js';
 import { InfoPanel } from './ui/InfoPanel.js';
 import { Minimap } from './ui/Minimap.js';
 import { Editor } from './ui/Editor.js';
+import { VendorMap } from './ui/VendorMap.js';
 
 const app = document.getElementById('app');
 const stage = app.querySelector('.stage');
@@ -22,6 +23,15 @@ const info = new InfoPanel(app);
 const minimap = new Minimap(app, (id) => goTo(id));
 const editor = new Editor(viewer, app);
 editor.onReload = () => reload();
+const vendorMap = new VendorMap(app);
+app.querySelector('.map-btn').addEventListener('click', () => vendorMap.toggle());
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') vendorMap.hide();
+  if ((e.key === 'm' || e.key === 'M') && !e.target.matches?.('input, select, textarea')) {
+    e.preventDefault();
+    vendorMap.toggle();
+  }
+});
 
 let current = null;
 let navigating = null;

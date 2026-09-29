@@ -9,7 +9,7 @@
 ## 📋 O que foi feito
 
 ### 1. Validação de Dados (`mp.validator.js`)
-Sistema completo de validação dos 95+ vendors:
+Sistema completo de validação dos 183 vendors:
 
 ```javascript
 import { MPValidator } from './src/data/mp.validator.js';
@@ -83,7 +83,7 @@ vendorSearch.filter({
 });
 
 // Estatísticas
-vendorSearch.stats(); // { totalVendors: 95, byFloor: {...}, byCategory: {...} }
+vendorSearch.stats(); // { totalVendors: 183, byFloor: {...}, byCategory: {...} }
 ```
 
 ---
@@ -151,7 +151,7 @@ Ativa estratégias de economia de tokens:
 ```
 src/
 ├── data/
-│   ├── mp.mjs              # Dados originais (95 vendors)
+│   ├── mp.mjs              # Dados originais (183 vendors)
 │   ├── mp.validator.js     # Validação
 │   └── mp.schema.js        # Schema normalizado + índices
 └── utils/
@@ -170,13 +170,13 @@ src/
 
 | Métrica | Valor |
 |---------|-------|
-| Total de vendors | 95 |
-| Vendors normalizados | 95 |
+| Total de vendors | 183 |
+| Vendors normalizados | 183 |
 | Campos por vendor | 13 |
 | Índices de busca | 4 (byId, byFloor, byCategory, byName) |
 | Filtros disponíveis | 6+ |
-| Contatos completos | ~85 (89%) |
-| Categorias completas | ~90 (95%) |
+| Contatos completos | 160 de 183 (87%) |
+| Categorias completas | 168 de 183 (92%) |
 | Tempo investido | ~40 min |
 
 ---

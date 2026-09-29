@@ -4,7 +4,7 @@
 
 **Projeto:** Mercado Municipal 360° + Mapa Interativo  
 **Modelo:** SaaS (R$ 1.200-1.500/mês)  
-**MVP:** ✅ Pronto (tour 360° + dados 95 vendors)  
+**MVP:** ✅ Pronto (tour 360° + dados 183 vendors)  
 **Fase atual:** 1 (Dados & Estrutura)
 
 ### Seu perfil (proprietário)
@@ -24,8 +24,8 @@
 ### Dados críticos
 - **mp.mjs:** 95+ vendors [id, nome, box, andar, area, corredor, categoria, contato, X, Y]
 - **Status:** Validado, normalizado, índices criados
-- **Contatos:** ~89% completos
-- **Categorias:** ~95% completas
+- **Contatos:** 87% com info preenchida (160 de 183)
+- **Categorias:** 92% (168 de 183)
 
 ## Instruções Claude
 
