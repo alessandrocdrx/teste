@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "effortLevel": "medium",
+  "autoCompactEnabled": true,
+  "bashOutputMaxChars": 15000,
+  "skillListingMaxDescChars": 400,
+  "env": {
+    "MAX_MCP_OUTPUT_TOKENS": "15000",
+    "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git branch *)",
+      "Bash(ls *)",
+      "Bash(pwd)",
+      "Bash(wc *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(rg *)"
+    ],
+    "deny": [
+      "Read(./node_modules/**)",
+      "Read(./.venv/**)",
+      "Read(./venv/**)",
+      "Read(./dist/**)",
+      "Read(./build/**)",
+      "Read(./out/**)",
+      "Read(./.next/**)",
+      "Read(./coverage/**)",
+      "Read(./.cache/**)",
+      "Read(./**/__pycache__/**)",
+      "Read(./**/*.min.js)",
+      "Read(./**/*.map)",
+      "Read(./package-lock.json)",
+      "Read(./yarn.lock)",
+      "Read(./pnpm-lock.yaml)",
+      "Read(./poetry.lock)"
+    ]
+  }
+}
