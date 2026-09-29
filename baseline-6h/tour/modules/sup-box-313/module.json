@@ -1,0 +1,33 @@
+{
+  "type": "box",
+  "title": "Kotobuki Artesanato e Presentes",
+  "placement": {
+    "floor": "superior",
+    "x": 20.66,
+    "y": -18.41,
+    "z": 1.4,
+    "width": 2.39,
+    "height": 3,
+    "depth": 4,
+    "facing": 180,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#A0764A",
+      "facade": "#F2F2F2",
+      "textColor": "#1C1C1C",
+      "label": "Kotobuki Artesanato e Presentes",
+      "sublabel": "Presentes e artesanato · Box 313"
+    }
+  },
+  "info": {
+    "category": "Presentes e artesanato",
+    "location": "Boxes 313 e 333 · Pavimento superior",
+    "color": "#8a4f7d",
+    "phone": "(41) 3362-4973 · (41) 99975-9265",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "6943553cfacd"
+}

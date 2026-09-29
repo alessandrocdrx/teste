@@ -1,0 +1,31 @@
+{
+  "type": "banca",
+  "title": "Banca da Cirlei",
+  "placement": {
+    "floor": "inferior",
+    "x": 75.1,
+    "y": -47.38,
+    "z": 0.6,
+    "width": 1.28,
+    "height": 1.2,
+    "facing": 0,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#1F5FA8",
+      "facade": "#2E7D32",
+      "label": "Banca da Cirlei",
+      "sublabel": "Hortifrúti · Banca 64"
+    }
+  },
+  "info": {
+    "category": "Hortifrúti",
+    "location": "Bancas 64 e 71 · Pavimento inferior",
+    "color": "#3c7a34",
+    "phone": "(41) 3262-6757",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "6ff4d8a92cd9"
+}

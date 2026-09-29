@@ -1,0 +1,27 @@
+{
+  "title": "Setor de Orgânicos · bancas",
+  "floor": "superior",
+  "position": {
+    "x": 65.25,
+    "y": -31.9,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "sup-verde-porta-d"
+    },
+    {
+      "to": "sup-verde-3"
+    },
+    {
+      "to": "sup-verde-2"
+    }
+  ],
+  "generated": true
+}

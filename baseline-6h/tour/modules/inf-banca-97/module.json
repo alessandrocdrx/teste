@@ -1,0 +1,30 @@
+{
+  "type": "banca",
+  "title": "Banco de Alimentos",
+  "placement": {
+    "floor": "inferior",
+    "x": 89.15,
+    "y": -38.74,
+    "z": 0.6,
+    "width": 1.28,
+    "height": 1.2,
+    "facing": 270,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#2f5d50",
+      "label": "Banco de Alimentos",
+      "sublabel": "Administração e serviços públicos · Banca 97"
+    }
+  },
+  "info": {
+    "category": "Administração e serviços públicos",
+    "location": "Banca 97 · Pavimento inferior",
+    "color": "#2f5d50",
+    "note": "Só o rótulo aparece no tour 3D.",
+    "source": "tour 3D oficial do Mercado (Matterport, set/2026). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "d13d10562274"
+}

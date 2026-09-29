@@ -1,0 +1,27 @@
+{
+  "type": "banca",
+  "title": "Banca 34",
+  "placement": {
+    "floor": "inferior",
+    "x": 61.3,
+    "y": -41.26,
+    "z": 0.6,
+    "width": 1.28,
+    "height": 1.2,
+    "facing": 90,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#3a3f3c",
+      "label": "Banca 34",
+      "sublabel": "comerciante não identificado"
+    }
+  },
+  "info": {
+    "location": "Pavimento inferior",
+    "description": "Ainda não sabemos quem ocupa este espaço. Se você souber, avise para atualizarmos o tour."
+  },
+  "generated": true,
+  "autoHash": "39fab9a7fdde"
+}

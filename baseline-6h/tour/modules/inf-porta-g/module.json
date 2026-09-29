@@ -1,0 +1,26 @@
+{
+  "type": "porta",
+  "title": "Porta G",
+  "placement": {
+    "floor": "inferior",
+    "x": 117.18,
+    "y": -65.2,
+    "z": 1.6,
+    "width": 3.2,
+    "height": 3.2,
+    "facing": 315,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#1e3a5f",
+      "label": "Porta G",
+      "sublabel": "lado leste"
+    }
+  },
+  "info": {
+    "location": "Pavimento inferior · lado leste"
+  },
+  "generated": true,
+  "autoHash": "def31fbd9c20"
+}

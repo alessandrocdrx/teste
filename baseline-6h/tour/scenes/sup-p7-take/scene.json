@@ -1,0 +1,27 @@
+{
+  "title": "Praça 7 de Setembro · Takê e Pastelaria",
+  "floor": "superior",
+  "position": {
+    "x": 62.13,
+    "y": -86.27,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "sup-rosa-4"
+    },
+    {
+      "to": "sup-dea-sul"
+    },
+    {
+      "to": "sup-galeria-0"
+    }
+  ],
+  "generated": true
+}

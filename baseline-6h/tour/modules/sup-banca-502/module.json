@@ -1,0 +1,27 @@
+{
+  "type": "banca",
+  "title": "Banca 502",
+  "placement": {
+    "floor": "superior",
+    "x": 70.25,
+    "y": -35.23,
+    "z": 0.6,
+    "width": 2.4,
+    "height": 1.2,
+    "facing": 270,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#3a3f3c",
+      "label": "Banca 502",
+      "sublabel": "comerciante não identificado"
+    }
+  },
+  "info": {
+    "location": "Pavimento superior",
+    "description": "Ainda não sabemos quem ocupa este espaço. Se você souber, avise para atualizarmos o tour."
+  },
+  "generated": true,
+  "autoHash": "9d5e897a347e"
+}

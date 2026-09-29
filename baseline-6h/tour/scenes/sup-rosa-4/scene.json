@@ -1,0 +1,30 @@
+{
+  "title": "Praça 7 de Setembro · centro",
+  "floor": "superior",
+  "position": {
+    "x": 60.97,
+    "y": -76.92,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "sup-rosa-3"
+    },
+    {
+      "to": "sup-p7-take"
+    },
+    {
+      "to": "inf-b-00",
+      "yaw": 285,
+      "pitch": -20,
+      "label": "Escada junto ao Takê · descer ao térreo"
+    }
+  ],
+  "generated": true
+}

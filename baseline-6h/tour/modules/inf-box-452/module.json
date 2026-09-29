@@ -1,0 +1,30 @@
+{
+  "type": "box",
+  "title": "Farmácia do Mercado – Nellyfarma",
+  "placement": {
+    "floor": "inferior",
+    "x": 107.07,
+    "y": -67.42,
+    "z": 1.4,
+    "width": 2.46,
+    "height": 2.8,
+    "facing": 180,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#4a5a73",
+      "label": "Farmácia do Mercado – Nellyfarma",
+      "sublabel": "Variedades e serviços · Box 452"
+    }
+  },
+  "info": {
+    "category": "Variedades e serviços",
+    "location": "Boxes 452 e 453 · Pavimento inferior",
+    "color": "#4a5a73",
+    "phone": "(41) 3363-2478 · (41) 99139-3770",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "1fdcc9e4fc17"
+}

@@ -1,0 +1,27 @@
+{
+  "type": "banca",
+  "title": "Banca 07",
+  "placement": {
+    "floor": "inferior",
+    "x": 49.08,
+    "y": -38.74,
+    "z": 0.6,
+    "width": 1.28,
+    "height": 1.2,
+    "facing": 270,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#3a3f3c",
+      "label": "Banca 07",
+      "sublabel": "comerciante não identificado"
+    }
+  },
+  "info": {
+    "location": "Pavimento inferior",
+    "description": "Ainda não sabemos quem ocupa este espaço. Se você souber, avise para atualizarmos o tour."
+  },
+  "generated": true,
+  "autoHash": "432ef0a93bcc"
+}

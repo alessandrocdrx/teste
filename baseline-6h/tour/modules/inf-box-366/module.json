@@ -1,0 +1,32 @@
+{
+  "type": "box",
+  "title": "Adega Curitibana",
+  "placement": {
+    "floor": "inferior",
+    "x": 38.78,
+    "y": -48.32,
+    "z": 1.4,
+    "width": 2.62,
+    "height": 3,
+    "depth": 4,
+    "facing": 0,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#5b2e63",
+      "vitrine": true,
+      "label": "Adega Curitibana",
+      "sublabel": "Bebidas · Box 366"
+    }
+  },
+  "info": {
+    "category": "Bebidas",
+    "location": "Boxes 366 e 371 · Pavimento inferior",
+    "color": "#5b2e63",
+    "phone": "(41) 3010-7545 · (41) 99133-7545",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "ab924897f35e"
+}

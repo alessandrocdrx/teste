@@ -1,0 +1,34 @@
+{
+  "type": "banca",
+  "title": "Cereais Mistura Fina",
+  "placement": {
+    "floor": "inferior",
+    "x": 55.19,
+    "y": -43.85,
+    "z": 0.6,
+    "width": 1.28,
+    "height": 1.2,
+    "facing": 180,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#F2F2F2",
+      "facade": "#F2F2F2",
+      "textColor": "#B22222",
+      "label": "Cereais Mistura Fina",
+      "sublabel": "Cereais e especiarias · Banca 17"
+    }
+  },
+  "info": {
+    "category": "Cereais e especiarias",
+    "location": "Banca 17 · Pavimento inferior",
+    "color": "#7a4a24",
+    "phone": "(41) 3362-6150 · (41) 99880-9647",
+    "description": "Frutas desidratadas, castanhas torradas, cereais, conservas e especiarias.",
+    "url": "https://www.mercadomunicipaldecuritiba.com.br/comerciante/cereais-mistura-fina/",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "503f2b7ecf13"
+}

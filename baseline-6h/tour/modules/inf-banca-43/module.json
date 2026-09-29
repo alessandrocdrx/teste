@@ -1,0 +1,34 @@
+{
+  "type": "banca",
+  "title": "Banca da Júlia",
+  "placement": {
+    "floor": "inferior",
+    "x": 63.88,
+    "y": -38.74,
+    "z": 0.6,
+    "width": 1.28,
+    "height": 1.2,
+    "facing": 270,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#3c7a34",
+      "facade": "#1F4D3A",
+      "label": "Banca da Júlia",
+      "sublabel": "Hortifrúti · Banca 43"
+    }
+  },
+  "info": {
+    "category": "Hortifrúti",
+    "location": "Bancas 43 e 44 · Pavimento inferior",
+    "color": "#3c7a34",
+    "phone": "(41) 3262-7266 · (41) 99926-1538",
+    "description": "Frutas e verduras nacionais e importadas, sem agrotóxicos, com entrega.",
+    "url": "https://www.mercadomunicipaldecuritiba.com.br/comerciante/banca-da-julia/",
+    "note": "A lista diz \"Box 43 e 44\", números dos boxes do Empório Valência; foi posta nas bancas 43–44.",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "5569ed420aa6"
+}

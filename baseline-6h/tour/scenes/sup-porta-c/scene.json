@@ -1,0 +1,21 @@
+{
+  "title": "Porta C · Rua da Paz",
+  "floor": "superior",
+  "position": {
+    "x": 40.46,
+    "y": -14.86,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "sup-norte-c"
+    }
+  ],
+  "generated": true
+}

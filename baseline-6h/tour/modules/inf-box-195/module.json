@@ -1,0 +1,35 @@
+{
+  "type": "box",
+  "title": "Confeitaria Colônia Cecília",
+  "placement": {
+    "floor": "inferior",
+    "x": 16.7,
+    "y": -31.81,
+    "z": 1.4,
+    "width": 3.71,
+    "height": 2.8,
+    "depth": 4,
+    "facing": 180,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#F2E8D0",
+      "facade": "#E8DCC8",
+      "textColor": "#2E4A2E",
+      "label": "Confeitaria Colônia Cecília",
+      "sublabel": "Doces e chocolates · Box 195"
+    }
+  },
+  "info": {
+    "category": "Doces e chocolates",
+    "location": "Box 195 · Hall Sete de Setembro · Pavimento inferior",
+    "color": "#6b3a2a",
+    "phone": "(41) 3030-3076",
+    "description": "Desde 2003. Café colonial aos domingos.",
+    "url": "https://www.mercadomunicipaldecuritiba.com.br/comerciante/confeitaria-colonia-cecilia/",
+    "source": "tour 3D oficial do Mercado (Matterport, set/2026). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "6d91c1b1adf9"
+}

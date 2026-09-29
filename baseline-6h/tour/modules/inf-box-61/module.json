@@ -1,0 +1,32 @@
+{
+  "type": "box",
+  "title": "Cafe do Mercado Co.",
+  "placement": {
+    "floor": "inferior",
+    "x": 44.86,
+    "y": -59.91,
+    "z": 1.4,
+    "width": 2.32,
+    "height": 2.6,
+    "depth": 4,
+    "facing": 0,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#b0561d",
+      "label": "Cafe do Mercado Co.",
+      "sublabel": "Lanchonete e restaurante · Box 61"
+    }
+  },
+  "info": {
+    "category": "Lanchonete e restaurante",
+    "location": "Box 61 · Pavimento inferior",
+    "color": "#b0561d",
+    "phone": "(41) 3011-1212 · (41) 99235-3196",
+    "url": "https://www.mercadomunicipaldecuritiba.com.br/comerciante/cafe-do-mercado-co/",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "3d394a0e1d8f"
+}

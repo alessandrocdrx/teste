@@ -1,0 +1,27 @@
+{
+  "type": "box",
+  "title": "Box 336",
+  "placement": {
+    "floor": "superior",
+    "x": 24.72,
+    "y": -23.78,
+    "z": 1.4,
+    "width": 2.67,
+    "height": 2.8,
+    "facing": 90,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#44474d",
+      "label": "Box 336",
+      "sublabel": "comerciante não identificado"
+    }
+  },
+  "info": {
+    "location": "Pavimento superior",
+    "description": "Ainda não sabemos quem ocupa este espaço. Se você souber, avise para atualizarmos o tour."
+  },
+  "generated": true,
+  "autoHash": "d3aa817bd312"
+}

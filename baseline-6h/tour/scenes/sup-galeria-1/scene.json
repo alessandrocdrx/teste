@@ -1,0 +1,24 @@
+{
+  "title": "Galeria de restaurantes · 1",
+  "floor": "superior",
+  "position": {
+    "x": 76.56,
+    "y": -92.15,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "sup-galeria-0"
+    },
+    {
+      "to": "sup-galeria-2"
+    }
+  ],
+  "generated": true
+}

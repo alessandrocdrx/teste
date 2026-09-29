@@ -1,0 +1,31 @@
+{
+  "type": "box",
+  "title": "Satine Cosméticos",
+  "placement": {
+    "floor": "inferior",
+    "x": 20.32,
+    "y": -15.31,
+    "z": 1.4,
+    "width": 2.64,
+    "height": 3,
+    "depth": 4,
+    "facing": 0,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#b0487a",
+      "label": "Satine Cosméticos",
+      "sublabel": "Beleza e cosméticos · Box 377"
+    }
+  },
+  "info": {
+    "category": "Beleza e cosméticos",
+    "location": "Box 377 · Pavimento inferior",
+    "color": "#b0487a",
+    "phone": "(41) 3029-6250 · (41) 99118-0069",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "ab5ee71f10ed"
+}

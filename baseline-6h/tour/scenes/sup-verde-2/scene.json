@@ -1,0 +1,27 @@
+{
+  "title": "Setor de Orgânicos · lojas",
+  "floor": "superior",
+  "position": {
+    "x": 76.49,
+    "y": -34.07,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "sup-verde-1"
+    },
+    {
+      "to": "n3-auditorio",
+      "yaw": 90,
+      "pitch": -20,
+      "label": "Escada · subir ao 3º nível"
+    }
+  ],
+  "generated": true
+}

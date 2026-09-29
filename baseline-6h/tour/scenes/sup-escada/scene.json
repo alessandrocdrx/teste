@@ -1,0 +1,45 @@
+{
+  "title": "Escadas · pavimento superior",
+  "floor": "superior",
+  "position": {
+    "x": 34.07,
+    "y": -31.9,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "sup-centro-1"
+    },
+    {
+      "to": "sup-centro-2"
+    },
+    {
+      "to": "sup-sul-1"
+    },
+    {
+      "to": "sup-sul-3"
+    },
+    {
+      "to": "sup-rosa-1"
+    },
+    {
+      "to": "inf-a-00",
+      "yaw": 180,
+      "pitch": -20,
+      "label": "Escada · descer ao pavimento inferior"
+    },
+    {
+      "to": "inf-anexo-3",
+      "yaw": 102,
+      "pitch": -20,
+      "label": "Escada · descer ao anexo (Adega Brasil, Satine)"
+    }
+  ],
+  "generated": true
+}

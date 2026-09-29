@@ -1,0 +1,30 @@
+{
+  "title": "Anexo · norte",
+  "floor": "inferior",
+  "position": {
+    "x": 20.79,
+    "y": -13.42,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "inf-anexo-2"
+    },
+    {
+      "to": "inf-anexo-4"
+    },
+    {
+      "to": "sup-escada",
+      "yaw": 42,
+      "pitch": -20,
+      "label": "Escada do anexo · subir à galeria de lojas (Vila Rica)"
+    }
+  ],
+  "generated": true
+}

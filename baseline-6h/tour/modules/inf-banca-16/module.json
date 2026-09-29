@@ -1,0 +1,27 @@
+{
+  "type": "banca",
+  "title": "Banca 16",
+  "placement": {
+    "floor": "inferior",
+    "x": 55.19,
+    "y": -47.38,
+    "z": 0.6,
+    "width": 1.28,
+    "height": 1.2,
+    "facing": 0,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#3a3f3c",
+      "label": "Banca 16",
+      "sublabel": "comerciante não identificado"
+    }
+  },
+  "info": {
+    "location": "Pavimento inferior",
+    "description": "Ainda não sabemos quem ocupa este espaço. Se você souber, avise para atualizarmos o tour."
+  },
+  "generated": true,
+  "autoHash": "3a17acfa312f"
+}

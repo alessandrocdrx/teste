@@ -1,0 +1,27 @@
+{
+  "type": "banca",
+  "title": "Banca 39",
+  "placement": {
+    "floor": "inferior",
+    "x": 63.88,
+    "y": -49.77,
+    "z": 0.6,
+    "width": 1.28,
+    "height": 1.2,
+    "facing": 270,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#3a3f3c",
+      "label": "Banca 39",
+      "sublabel": "comerciante não identificado"
+    }
+  },
+  "info": {
+    "location": "Pavimento inferior",
+    "description": "Ainda não sabemos quem ocupa este espaço. Se você souber, avise para atualizarmos o tour."
+  },
+  "generated": true,
+  "autoHash": "88615e4b1254"
+}

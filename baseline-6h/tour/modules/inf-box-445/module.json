@@ -1,0 +1,30 @@
+{
+  "type": "box",
+  "title": "Grander & Shiomi (restaurante)",
+  "placement": {
+    "floor": "inferior",
+    "x": 83.49,
+    "y": -66.99,
+    "z": 1.4,
+    "width": 2.42,
+    "height": 2.8,
+    "facing": 180,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#b0561d",
+      "label": "Grander & Shiomi (restaurante)",
+      "sublabel": "Lanchonete e restaurante · Box 445"
+    }
+  },
+  "info": {
+    "category": "Lanchonete e restaurante",
+    "location": "Boxes 445 e 446 · Pavimento inferior",
+    "color": "#b0561d",
+    "note": "Razão social da permissionária; nome fantasia não identificado.",
+    "source": "Decreto municipal nº 327/2019 (transferência de permissão de uso). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "f4c823289ffd"
+}

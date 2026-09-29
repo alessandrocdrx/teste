@@ -1,0 +1,24 @@
+{
+  "title": "Rampa oeste",
+  "floor": "inferior",
+  "position": {
+    "x": 22.68,
+    "y": -44.41,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "inf-b-00"
+    },
+    {
+      "to": "inf-hall-leste"
+    }
+  ],
+  "generated": true
+}

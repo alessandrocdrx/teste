@@ -1,0 +1,24 @@
+{
+  "title": "Anexo · sudoeste",
+  "floor": "inferior",
+  "position": {
+    "x": 5.17,
+    "y": -22.05,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "inf-anexo-4"
+    },
+    {
+      "to": "inf-anexo-6"
+    }
+  ],
+  "generated": true
+}

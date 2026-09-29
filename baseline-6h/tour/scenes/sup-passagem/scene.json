@@ -1,0 +1,27 @@
+{
+  "title": "Passagem para a área rosa",
+  "floor": "superior",
+  "position": {
+    "x": 54.01,
+    "y": -40.6,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "sup-sul-3"
+    },
+    {
+      "to": "sup-rosa-2"
+    },
+    {
+      "to": "sup-rosa-1b"
+    }
+  ],
+  "generated": true
+}

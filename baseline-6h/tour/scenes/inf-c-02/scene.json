@@ -1,0 +1,30 @@
+{
+  "title": "Corredor C (verde) · 3",
+  "floor": "inferior",
+  "position": {
+    "x": 52.61,
+    "y": -57.83,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "inf-c-01"
+    },
+    {
+      "to": "inf-c-03"
+    },
+    {
+      "to": "inf-b-02"
+    },
+    {
+      "to": "inf-lig-j"
+    }
+  ],
+  "generated": true
+}

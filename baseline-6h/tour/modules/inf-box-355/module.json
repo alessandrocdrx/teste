@@ -1,0 +1,32 @@
+{
+  "type": "box",
+  "title": "Mercearia Sayonara",
+  "placement": {
+    "floor": "inferior",
+    "x": 36.46,
+    "y": -36.98,
+    "z": 1.4,
+    "width": 2.54,
+    "height": 3,
+    "depth": 4,
+    "facing": 0,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#1E2F6B",
+      "textColor": "#F2F2F2",
+      "label": "Mercearia Sayonara",
+      "sublabel": "Empório e mercearia · Box 355"
+    }
+  },
+  "info": {
+    "category": "Empório e mercearia",
+    "location": "Box 355 · Pavimento inferior",
+    "color": "#9a6b1f",
+    "phone": "(41) 3262-2386 · (41) 98762-8681",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "cd2a546ac0e3"
+}

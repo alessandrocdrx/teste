@@ -1,0 +1,24 @@
+{
+  "title": "Porta G",
+  "floor": "inferior",
+  "position": {
+    "x": 115.29,
+    "y": -63.63,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "inf-sul-05"
+    },
+    {
+      "to": "inf-diagonal"
+    }
+  ],
+  "generated": true
+}

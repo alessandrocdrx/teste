@@ -1,0 +1,24 @@
+{
+  "title": "Praça Déa · Fujii e Box Curitiba",
+  "floor": "superior",
+  "position": {
+    "x": 42.78,
+    "y": -84.82,
+    "z": 3.1
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "sup-p7-take"
+    },
+    {
+      "to": "sup-dea-centro"
+    }
+  ],
+  "generated": true
+}

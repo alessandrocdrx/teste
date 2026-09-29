@@ -1,0 +1,32 @@
+{
+  "type": "box",
+  "title": "Nico's Café Orgânico",
+  "placement": {
+    "floor": "superior",
+    "x": 69.6,
+    "y": -51.76,
+    "z": 1.4,
+    "width": 3,
+    "height": 2.8,
+    "facing": 0,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#7F9F86",
+      "facade": "#7F9F86",
+      "textColor": "#FFFFFF",
+      "label": "Nico's Café Orgânico",
+      "sublabel": "Orgânicos · Box 516"
+    }
+  },
+  "info": {
+    "category": "Orgânicos",
+    "location": "Box 516 · Pavimento superior",
+    "color": "#2f7d32",
+    "phone": "(41) 99573-3365",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "c0289373d98e"
+}

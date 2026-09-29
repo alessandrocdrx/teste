@@ -1,0 +1,27 @@
+{
+  "type": "box",
+  "title": "Box 49",
+  "placement": {
+    "floor": "inferior",
+    "x": 26.94,
+    "y": -39.19,
+    "z": 1.4,
+    "width": 2.38,
+    "height": 2.8,
+    "facing": 90,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#44474d",
+      "label": "Box 49",
+      "sublabel": "comerciante não identificado"
+    }
+  },
+  "info": {
+    "location": "Pavimento inferior",
+    "description": "Ainda não sabemos quem ocupa este espaço. Se você souber, avise para atualizarmos o tour."
+  },
+  "generated": true,
+  "autoHash": "ea48ec373cae"
+}

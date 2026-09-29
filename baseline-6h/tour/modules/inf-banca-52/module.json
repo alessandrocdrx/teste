@@ -1,0 +1,32 @@
+{
+  "type": "banca",
+  "title": "Urbano 52 CWB",
+  "placement": {
+    "floor": "inferior",
+    "x": 70.06,
+    "y": -47.38,
+    "z": 0.6,
+    "width": 1.28,
+    "height": 1.2,
+    "facing": 0,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#3c7a34",
+      "label": "Urbano 52 CWB",
+      "sublabel": "Hortifrúti · Banca 52"
+    }
+  },
+  "info": {
+    "category": "Hortifrúti",
+    "location": "Banca 52 · Pavimento inferior",
+    "color": "#3c7a34",
+    "phone": "(41) 99654-6053",
+    "description": "Frutas e verduras.",
+    "url": "https://www.mercadomunicipaldecuritiba.com.br/comerciante/urbano-52-cwb/",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "5e03327e63c7"
+}

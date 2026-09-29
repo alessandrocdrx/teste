@@ -1,0 +1,27 @@
+{
+  "title": "Corredor A (azul) · 5",
+  "floor": "inferior",
+  "position": {
+    "x": 72.45,
+    "y": -34.08,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "inf-a-03"
+    },
+    {
+      "to": "inf-a-05"
+    },
+    {
+      "to": "inf-b-04"
+    }
+  ],
+  "generated": true
+}

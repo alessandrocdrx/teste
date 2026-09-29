@@ -1,0 +1,30 @@
+{
+  "title": "Praça Déa · Bonna Gourmet e Anarco",
+  "floor": "superior",
+  "position": {
+    "x": 41.47,
+    "y": -67.79,
+    "z": 3.1
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "sup-rosa-3"
+    },
+    {
+      "to": "sup-dea-centro"
+    },
+    {
+      "to": "inf-hall-norte",
+      "yaw": 261,
+      "pitch": -20,
+      "label": "Escada helicoidal · descer ao Hall Sete de Setembro"
+    }
+  ],
+  "generated": true
+}

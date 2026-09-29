@@ -1,0 +1,30 @@
+{
+  "title": "Hall Sete de Setembro · praça circular",
+  "floor": "inferior",
+  "position": {
+    "x": 15.25,
+    "y": -45.8,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "inf-hall-leste"
+    },
+    {
+      "to": "inf-hall-oeste"
+    },
+    {
+      "to": "inf-hall-norte"
+    },
+    {
+      "to": "inf-hall-sul"
+    }
+  ],
+  "generated": true
+}

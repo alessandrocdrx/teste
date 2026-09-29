@@ -1,0 +1,30 @@
+{
+  "title": "Corredor B (amarelo) · 7",
+  "floor": "inferior",
+  "position": {
+    "x": 92.61,
+    "y": -46.12,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "inf-b-05"
+    },
+    {
+      "to": "inf-b-07"
+    },
+    {
+      "to": "inf-a-06"
+    },
+    {
+      "to": "inf-c-06"
+    }
+  ],
+  "generated": true
+}

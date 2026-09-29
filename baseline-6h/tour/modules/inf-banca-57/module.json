@@ -1,0 +1,31 @@
+{
+  "type": "banca",
+  "title": "Empório 56",
+  "placement": {
+    "floor": "inferior",
+    "x": 71.19,
+    "y": -38.74,
+    "z": 0.6,
+    "width": 1.28,
+    "height": 1.2,
+    "facing": 90,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#9a6b1f",
+      "label": "Empório 56",
+      "sublabel": "Empório e mercearia · Banca 57"
+    }
+  },
+  "info": {
+    "category": "Empório e mercearia",
+    "location": "Bancas 56 e 57 · Pavimento inferior",
+    "color": "#9a6b1f",
+    "phone": "(41) 99861-3398",
+    "url": "https://www.mercadomunicipaldecuritiba.com.br/comerciante/emporio-56-2/",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "f947f2831cd9"
+}

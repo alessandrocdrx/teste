@@ -1,0 +1,27 @@
+{
+  "type": "box",
+  "title": "Box 52",
+  "placement": {
+    "floor": "inferior",
+    "x": 26.1,
+    "y": -51.22,
+    "z": 1.4,
+    "width": 2.78,
+    "height": 2.8,
+    "facing": 90,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#44474d",
+      "label": "Box 52",
+      "sublabel": "comerciante não identificado"
+    }
+  },
+  "info": {
+    "location": "Pavimento inferior",
+    "description": "Ainda não sabemos quem ocupa este espaço. Se você souber, avise para atualizarmos o tour."
+  },
+  "generated": true,
+  "autoHash": "e35d1b621384"
+}

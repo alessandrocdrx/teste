@@ -1,0 +1,27 @@
+{
+  "type": "box",
+  "title": "Box 458",
+  "placement": {
+    "floor": "inferior",
+    "x": 120.64,
+    "y": -49.93,
+    "z": 1.4,
+    "width": 2.64,
+    "height": 2.8,
+    "facing": 250,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#44474d",
+      "label": "Box 458",
+      "sublabel": "comerciante não identificado"
+    }
+  },
+  "info": {
+    "location": "Pavimento inferior",
+    "description": "Ainda não sabemos quem ocupa este espaço. Se você souber, avise para atualizarmos o tour."
+  },
+  "generated": true,
+  "autoHash": "d4b13a568bb6"
+}

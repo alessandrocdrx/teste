@@ -1,0 +1,29 @@
+{
+  "type": "banca",
+  "title": "Decaésse Acessórios",
+  "placement": {
+    "floor": "inferior",
+    "x": 60.17,
+    "y": -55.19,
+    "z": 0.6,
+    "width": 1.28,
+    "height": 1.2,
+    "facing": 180,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#8a4f7d",
+      "label": "Decaésse Acessórios",
+      "sublabel": "Presentes e artesanato · Banca 25"
+    }
+  },
+  "info": {
+    "category": "Presentes e artesanato",
+    "location": "Banca 25 · Pavimento inferior",
+    "color": "#8a4f7d",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "3e93d8309831"
+}

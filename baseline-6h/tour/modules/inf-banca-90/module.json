@@ -1,0 +1,30 @@
+{
+  "type": "banca",
+  "title": "Mel Zum (Mimila)",
+  "placement": {
+    "floor": "inferior",
+    "x": 86.31,
+    "y": -52.6,
+    "z": 0.6,
+    "width": 1.28,
+    "height": 1.2,
+    "facing": 90,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#E8C21A",
+      "label": "Mel Zum (Mimila)",
+      "sublabel": "Empório e mercearia · Banca 90"
+    }
+  },
+  "info": {
+    "category": "Empório e mercearia",
+    "location": "Bancas 79 e 90 · Pavimento inferior",
+    "color": "#9a6b1f",
+    "phone": "(41) 3015-0255",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "e6fba50debf3"
+}

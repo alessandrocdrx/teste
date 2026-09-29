@@ -1,0 +1,24 @@
+{
+  "title": "Corredor sul · leste",
+  "floor": "inferior",
+  "position": {
+    "x": 107.1,
+    "y": -69.93,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "inf-porta-h"
+    },
+    {
+      "to": "inf-sul-05"
+    }
+  ],
+  "generated": true
+}

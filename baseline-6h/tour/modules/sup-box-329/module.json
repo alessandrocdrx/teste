@@ -1,0 +1,34 @@
+{
+  "type": "box",
+  "title": "Salão de Cabeleireiro Unissex – Eurides",
+  "placement": {
+    "floor": "superior",
+    "x": 53.07,
+    "y": -34.07,
+    "z": 1.4,
+    "width": 2.4,
+    "height": 3,
+    "depth": 4,
+    "facing": 270,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#EDE8DC",
+      "facade": "#F2F2F2",
+      "textColor": "#1C1C1C",
+      "closed": true,
+      "label": "Salão de Cabeleireiro Unissex – Eurides",
+      "sublabel": "Beleza e cosméticos · Box 329"
+    }
+  },
+  "info": {
+    "category": "Beleza e cosméticos",
+    "location": "Box 329 · Pavimento superior",
+    "color": "#b0487a",
+    "phone": "(41) 99936-3253",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "84994bf4c506"
+}

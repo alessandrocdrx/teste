@@ -1,0 +1,30 @@
+{
+  "title": "Galeria de restaurantes · 2",
+  "floor": "superior",
+  "position": {
+    "x": 96.64,
+    "y": -92.15,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "sup-galeria-1"
+    },
+    {
+      "to": "sup-galeria-3"
+    },
+    {
+      "to": "inf-lig-i",
+      "yaw": 180,
+      "pitch": -20,
+      "label": "Escada · descer ao corredor da General Carneiro"
+    }
+  ],
+  "generated": true
+}

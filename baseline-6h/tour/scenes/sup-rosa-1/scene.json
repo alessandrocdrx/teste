@@ -1,0 +1,24 @@
+{
+  "title": "Praça de Alimentação Karan · oeste",
+  "floor": "superior",
+  "position": {
+    "x": 33.35,
+    "y": -39.51,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "sup-escada"
+    },
+    {
+      "to": "sup-rosa-1b"
+    }
+  ],
+  "generated": true
+}

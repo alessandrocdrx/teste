@@ -1,0 +1,27 @@
+{
+  "type": "banca",
+  "title": "Banca 504",
+  "placement": {
+    "floor": "superior",
+    "x": 73.8,
+    "y": -35.23,
+    "z": 0.6,
+    "width": 2.4,
+    "height": 1.2,
+    "facing": 90,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#3a3f3c",
+      "label": "Banca 504",
+      "sublabel": "comerciante não identificado"
+    }
+  },
+  "info": {
+    "location": "Pavimento superior",
+    "description": "Ainda não sabemos quem ocupa este espaço. Se você souber, avise para atualizarmos o tour."
+  },
+  "generated": true,
+  "autoHash": "64e0010f0734"
+}

@@ -1,0 +1,33 @@
+{
+  "type": "box",
+  "title": "Célio Dobrucki (Dobrucki Vintage)",
+  "placement": {
+    "floor": "inferior",
+    "x": 12.41,
+    "y": -55.06,
+    "z": 1.4,
+    "width": 1.97,
+    "height": 2.8,
+    "depth": 4,
+    "facing": 0,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#4A2F1E",
+      "facade": "#D8CFC0",
+      "textColor": "#FFFFFF",
+      "label": "Célio Dobrucki (Dobrucki Vintage)",
+      "sublabel": "Presentes e artesanato · Box 188"
+    }
+  },
+  "info": {
+    "category": "Presentes e artesanato",
+    "location": "Box 188 · Hall Sete de Setembro · Pavimento inferior",
+    "color": "#8a4f7d",
+    "phone": "(41) 99912-7206",
+    "source": "tour 3D oficial do Mercado (Matterport, set/2026). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "8728207c8c7b"
+}

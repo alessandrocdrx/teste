@@ -1,0 +1,35 @@
+{
+  "type": "box",
+  "title": "Celeiro Municipal",
+  "placement": {
+    "floor": "inferior",
+    "x": 96.71,
+    "y": -54.68,
+    "z": 1.4,
+    "width": 3.48,
+    "height": 3,
+    "depth": 4,
+    "facing": 180,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#1A1A1A",
+      "facade": "#1A1A1A",
+      "label": "Celeiro Municipal",
+      "sublabel": "Empório e mercearia · Box 13"
+    }
+  },
+  "info": {
+    "category": "Empório e mercearia",
+    "location": "Boxes 12 e 13 · Pavimento inferior",
+    "color": "#9a6b1f",
+    "phone": "(41) 3013-6132",
+    "description": "Queijos, vinhos, destilados, castanhas, frutas secas e bacalhau.",
+    "url": "https://www.mercadomunicipaldecuritiba.com.br/comerciante/celeiro-municipal/",
+    "note": "A lista não traz o número do box; boxes 12–13 vêm de guia público.",
+    "source": "guia público (applocal). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "db4a7937a6af"
+}

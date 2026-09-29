@@ -1,0 +1,33 @@
+{
+  "type": "box",
+  "title": "Empório Top Mix",
+  "placement": {
+    "floor": "inferior",
+    "x": 36.19,
+    "y": -42.71,
+    "z": 1.4,
+    "width": 2.58,
+    "height": 2.6,
+    "depth": 4,
+    "facing": 180,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#1A1A1A",
+      "label": "Empório Top Mix",
+      "sublabel": "Doces e chocolates · Box 360"
+    }
+  },
+  "info": {
+    "category": "Doces e chocolates",
+    "location": "Box 360 · Pavimento inferior",
+    "color": "#6b3a2a",
+    "phone": "(41) 3010-2544 · (41) 99950-5456",
+    "description": "Desde 2011: geleias, azeites, frutas secas, patês, azeitonas e doces.",
+    "url": "https://www.mercadomunicipaldecuritiba.com.br/comerciante/emporio-top-mix/",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "9a4ea931814a"
+}

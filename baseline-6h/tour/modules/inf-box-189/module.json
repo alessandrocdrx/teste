@@ -1,0 +1,35 @@
+{
+  "type": "box",
+  "title": "Miranda's Mercearia",
+  "placement": {
+    "floor": "inferior",
+    "x": 8.38,
+    "y": -56.51,
+    "z": 1.4,
+    "width": 2.2,
+    "height": 2.8,
+    "depth": 4,
+    "facing": 0,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#B22222",
+      "facade": "#D8C8A8",
+      "textColor": "#FFFFFF",
+      "label": "Miranda's Mercearia",
+      "sublabel": "Empório e mercearia · Box 189"
+    }
+  },
+  "info": {
+    "category": "Empório e mercearia",
+    "location": "Box 189 · Hall Sete de Setembro · Pavimento inferior",
+    "color": "#9a6b1f",
+    "phone": "(41) 99700-4977",
+    "description": "Produtos paranaenses: chocolates artesanais, doces e cafés.",
+    "url": "https://www.mercadomunicipaldecuritiba.com.br/comerciante/mirandas-mercearia/",
+    "source": "tour 3D oficial do Mercado (Matterport, set/2026). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "e9431258eafd"
+}

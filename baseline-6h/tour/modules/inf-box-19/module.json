@@ -1,0 +1,27 @@
+{
+  "type": "box",
+  "title": "Box 19",
+  "placement": {
+    "floor": "inferior",
+    "x": 110.88,
+    "y": -55.19,
+    "z": 1.4,
+    "width": 1.91,
+    "height": 2.8,
+    "facing": 180,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#44474d",
+      "label": "Box 19",
+      "sublabel": "comerciante não identificado"
+    }
+  },
+  "info": {
+    "location": "Pavimento inferior",
+    "description": "Ainda não sabemos quem ocupa este espaço. Se você souber, avise para atualizarmos o tour."
+  },
+  "generated": true,
+  "autoHash": "b1c0d646d1b8"
+}

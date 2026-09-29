@@ -1,0 +1,21 @@
+{
+  "title": "Porta E · Rua da Paz",
+  "floor": "inferior",
+  "position": {
+    "x": 81.9,
+    "y": -29.61,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "inf-a-05"
+    }
+  ],
+  "generated": true
+}

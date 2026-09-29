@@ -1,0 +1,34 @@
+{
+  "type": "banca",
+  "title": "Espaço Orgânico",
+  "placement": {
+    "floor": "superior",
+    "x": 73.8,
+    "y": -26.1,
+    "z": 0.6,
+    "width": 2.4,
+    "height": 1.2,
+    "facing": 90,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#F2E8D0",
+      "facade": "#F2F2F2",
+      "textColor": "#5A3A22",
+      "vitrine": true,
+      "label": "Espaço Orgânico",
+      "sublabel": "Orgânicos · Banca 508"
+    }
+  },
+  "info": {
+    "category": "Orgânicos",
+    "location": "Banca 508 · Pavimento superior",
+    "color": "#2f7d32",
+    "phone": "(41) 3088-1403 · (41) 98405-3506",
+    "url": "https://www.mercadomunicipaldecuritiba.com.br/comerciante/espaco-organico/",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "19df8f7fe2ed"
+}

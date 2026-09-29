@@ -1,0 +1,33 @@
+{
+  "type": "box",
+  "title": "Casa Nobre Especiarias",
+  "placement": {
+    "floor": "inferior",
+    "x": 20.48,
+    "y": -24.38,
+    "z": 1.4,
+    "width": 2.06,
+    "height": 3,
+    "depth": 4,
+    "facing": 0,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#1A1A1A",
+      "textColor": "#1A1A1A",
+      "label": "Casa Nobre Especiarias",
+      "sublabel": "Cereais e especiarias · Box 283"
+    }
+  },
+  "info": {
+    "category": "Cereais e especiarias",
+    "location": "Boxes 281 e 283 · Pavimento inferior",
+    "color": "#7a4a24",
+    "phone": "(41) 3262-5064 · (41) 99571-0735",
+    "note": "Na lista aparece como Casa Gourmet (mesmo celular).",
+    "source": "tour 3D oficial do Mercado (Matterport, set/2026). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "5d427374c1bf"
+}

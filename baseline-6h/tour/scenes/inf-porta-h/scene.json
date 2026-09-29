@@ -1,0 +1,27 @@
+{
+  "title": "Porta H · Rua General Carneiro",
+  "floor": "inferior",
+  "position": {
+    "x": 89.78,
+    "y": -69.3,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "inf-lig-h"
+    },
+    {
+      "to": "inf-porta-i"
+    },
+    {
+      "to": "inf-sul-04"
+    }
+  ],
+  "generated": true
+}

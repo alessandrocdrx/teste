@@ -1,0 +1,35 @@
+{
+  "type": "box",
+  "title": "Café do Jorge e da Aurea",
+  "placement": {
+    "floor": "superior",
+    "x": 25.91,
+    "y": -43.79,
+    "z": 1.4,
+    "width": 2.98,
+    "height": 3,
+    "depth": 4,
+    "facing": 0,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#E6DCC0",
+      "facade": "#8A6A4A",
+      "textColor": "#5A3A22",
+      "label": "Café do Jorge e da Aurea",
+      "sublabel": "Lanchonete e restaurante · Box 16"
+    }
+  },
+  "info": {
+    "category": "Lanchonete e restaurante",
+    "location": "Box 16 · Pavimento superior",
+    "color": "#b0561d",
+    "phone": "(41) 3152-6132",
+    "url": "https://www.mercadomunicipaldecuritiba.com.br/comerciante/cafe-do-jorge-e-da-aurea/",
+    "note": "A lista informa o box 206; posição do tour 3D (praça de alimentação Karan).",
+    "source": "tour 3D oficial do Mercado (Matterport, set/2026). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "d9dabe407cdd"
+}

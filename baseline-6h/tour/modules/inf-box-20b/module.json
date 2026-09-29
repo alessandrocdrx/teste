@@ -1,0 +1,27 @@
+{
+  "type": "box",
+  "title": "Box 20b",
+  "placement": {
+    "floor": "inferior",
+    "x": 113.72,
+    "y": -55,
+    "z": 1.4,
+    "width": 3.19,
+    "height": 2.8,
+    "facing": 180,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#44474d",
+      "label": "Box 20b",
+      "sublabel": "comerciante não identificado"
+    }
+  },
+  "info": {
+    "location": "Pavimento inferior",
+    "description": "Ainda não sabemos quem ocupa este espaço. Se você souber, avise para atualizarmos o tour."
+  },
+  "generated": true,
+  "autoHash": "911853ca0c6a"
+}

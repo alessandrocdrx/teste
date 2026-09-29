@@ -1,0 +1,33 @@
+{
+  "type": "box",
+  "title": "Fujii Cozinha Japonesa",
+  "placement": {
+    "floor": "superior",
+    "x": 38.39,
+    "y": -89.46,
+    "z": 2.9,
+    "width": 3.2,
+    "height": 2.8,
+    "facing": 20,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#C62828",
+      "facade": "#F2F2F2",
+      "textColor": "#FFFFFF",
+      "label": "Fujii Cozinha Japonesa",
+      "sublabel": "Lanchonete e restaurante · Praça Déa"
+    }
+  },
+  "info": {
+    "category": "Lanchonete e restaurante",
+    "location": "Praça Déa · Praça Déa · Pavimento superior",
+    "color": "#b0561d",
+    "phone": "(41) 3114-8393",
+    "note": "Praças de alimentação Déa / 7 de Setembro, a oeste dos boxes 07–10 do pavimento superior.",
+    "source": "tour 3D oficial do Mercado (Matterport, set/2026). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "1a9bc18ab0ec"
+}

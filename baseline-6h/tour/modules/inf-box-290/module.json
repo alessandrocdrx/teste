@@ -1,0 +1,27 @@
+{
+  "type": "box",
+  "title": "Box 290",
+  "placement": {
+    "floor": "inferior",
+    "x": 3.4,
+    "y": -25.39,
+    "z": 1.4,
+    "width": 2.77,
+    "height": 2.8,
+    "facing": 90,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#44474d",
+      "label": "Box 290",
+      "sublabel": "comerciante não identificado"
+    }
+  },
+  "info": {
+    "location": "Pavimento inferior",
+    "description": "Ainda não sabemos quem ocupa este espaço. Se você souber, avise para atualizarmos o tour."
+  },
+  "generated": true,
+  "autoHash": "b29a0fd1426c"
+}

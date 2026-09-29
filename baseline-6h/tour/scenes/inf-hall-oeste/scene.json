@@ -1,0 +1,27 @@
+{
+  "title": "Hall Sete de Setembro · entrada da Av. Sete de Setembro",
+  "floor": "inferior",
+  "position": {
+    "x": 7.56,
+    "y": -45.86,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "inf-hall-centro"
+    },
+    {
+      "to": "inf-hall-norte"
+    },
+    {
+      "to": "inf-hall-sul"
+    }
+  ],
+  "generated": true
+}

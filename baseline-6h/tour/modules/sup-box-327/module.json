@@ -1,0 +1,33 @@
+{
+  "type": "box",
+  "title": "Sapataria Rápida Capricho",
+  "placement": {
+    "floor": "superior",
+    "x": 53.27,
+    "y": -28.85,
+    "z": 1.4,
+    "width": 2.4,
+    "height": 3,
+    "depth": 4,
+    "facing": 270,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#4A2F1E",
+      "facade": "#F2F2F2",
+      "textColor": "#FFFFFF",
+      "label": "Sapataria Rápida Capricho",
+      "sublabel": "Consertos e costura · Box 327"
+    }
+  },
+  "info": {
+    "category": "Consertos e costura",
+    "location": "Box 327 · Pavimento superior",
+    "color": "#6d6a3a",
+    "phone": "(41) 3026-7082 · (41) 99591-5098",
+    "source": "lista de lojas do Mercado Municipal (curitiba.mercadomodelo.com.br). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "3950f02f701f"
+}

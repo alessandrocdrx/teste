@@ -1,0 +1,33 @@
+{
+  "type": "box",
+  "title": "Empório 365",
+  "placement": {
+    "floor": "inferior",
+    "x": 35.93,
+    "y": -48.32,
+    "z": 1.4,
+    "width": 2.62,
+    "height": 3,
+    "depth": 4,
+    "facing": 0,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#2E7D32",
+      "facade": "#B22222",
+      "textColor": "#2E7D32",
+      "label": "Empório 365",
+      "sublabel": "Empório e mercearia · Box 365"
+    }
+  },
+  "info": {
+    "category": "Empório e mercearia",
+    "location": "Box 365 · Pavimento inferior",
+    "color": "#9a6b1f",
+    "phone": "(41) 3010-2544 · (41) 98777-5454",
+    "source": "tour 3D oficial do Mercado (Matterport, set/2026). Comerciantes podem mudar de box: confirme no local."
+  },
+  "generated": true,
+  "autoHash": "55d00d62437f"
+}

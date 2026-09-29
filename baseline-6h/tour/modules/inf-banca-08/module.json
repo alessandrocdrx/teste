@@ -1,0 +1,27 @@
+{
+  "type": "banca",
+  "title": "Banca 08",
+  "placement": {
+    "floor": "inferior",
+    "x": 50.21,
+    "y": -36.16,
+    "z": 0.6,
+    "width": 1.28,
+    "height": 1.2,
+    "facing": 0,
+    "surface": "wall"
+  },
+  "media": {
+    "placeholder": {
+      "color": "#3a3f3c",
+      "label": "Banca 08",
+      "sublabel": "comerciante não identificado"
+    }
+  },
+  "info": {
+    "location": "Pavimento inferior",
+    "description": "Ainda não sabemos quem ocupa este espaço. Se você souber, avise para atualizarmos o tour."
+  },
+  "generated": true,
+  "autoHash": "cd51967f34ba"
+}

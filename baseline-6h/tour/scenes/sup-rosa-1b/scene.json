@@ -1,0 +1,27 @@
+{
+  "title": "Praça de Alimentação Karan · leste",
+  "floor": "superior",
+  "position": {
+    "x": 49.88,
+    "y": -41.47,
+    "z": 1.6
+  },
+  "northYaw": 0,
+  "moduleRadius": 28,
+  "base": {
+    "type": "cube",
+    "faces": {}
+  },
+  "links": [
+    {
+      "to": "sup-rosa-1"
+    },
+    {
+      "to": "sup-rosa-2"
+    },
+    {
+      "to": "sup-passagem"
+    }
+  ],
+  "generated": true
+}
