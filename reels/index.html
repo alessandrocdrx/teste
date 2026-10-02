@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Reels Google Play Dev</title>
+<link href="fonts/fonts.css" rel="stylesheet">
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block}</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// Reels 1080x1920, 16s, 120 BPM (1 batida = 0.5s). render(t) desenha o frame no tempo t.
+const W = 1080, H = 1920, BEAT = 0.5;
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const C = { blue: '#00A3FF', green: '#00E676', yellow: '#FFC400', red: '#FF3D57' };
+const PAL = [C.blue, C.green, C.yellow, C.red, '#FFFFFF'];
+const HANDLE = new URLSearchParams(location.search).get('handle') || '';
+const EMOJI = '"Noto Color Emoji"';
+
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+const eOutExpo = x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
+const eOutBack = x => { const c1 = 2.2, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const eInOut = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+// Impactos (tempo, intensidade) -> tremor de câmera
+const HITS = [[5.0, 30], [6.0, 60], [7.0, 20], [7.5, 20], [8.0, 24], [8.5, 28], [9.0, 34], [10.5, 18], [13.0, 60], [13.5, 24]];
+const FLASHES = [[5.0, .45, .18], [6.0, 1, .45], [7.0, .12, .1], [7.5, .12, .1], [8.0, .15, .1], [8.5, .18, .12], [9.0, .25, .15], [10.5, .35, .2], [13.0, 1, .5]];
+function shake(t) { let s = 0; for (const [h, a] of HITS) { const d = t - h; if (d >= 0 && d < .7) s += a * Math.exp(-d * 9); } if (t > 5.05 && t < 5.875) s += 14 * prog(t, 5.05, 5.875); if (t > 12.1 && t < 12.875) s += 10 * prog(t, 12.1, 12.875); return s; }
+function kickEnv(t) { if (t < 6 || t >= 15.5 || (t > 12.875 && t < 13)) return 0; return Math.exp(-((t - 6) % BEAT) * 9); }
+
+function rr(x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+function fitSize(txt, family, max, maxW) { ctx.font = `${max}px ${family}`; const w = ctx.measureText(txt).width; return Math.min(max, max * maxW / w); }
+function playGrad(x0, x1, shift = 0) {
+  const g = ctx.createLinearGradient(x0, 0, x1, 0);
+  const cols = [C.blue, C.green, C.yellow, C.red, C.blue];
+  for (let i = 0; i < cols.length; i++) g.addColorStop(clamp((i / 4 + shift) % 1.0001), cols[i]);
+  return g;
+}
+
+// Triângulo "play" em 4 cores
+function drawPlay(cx, cy, size, rot = 0, alpha = 1) {
+  if (size <= 1 || alpha <= 0) return;
+  const A = [-.42, -.5], B = [-.42, .5], Cc = [.5, 0];
+  const L = (p, q, k) => [lerp(p[0], q[0], k), lerp(p[1], q[1], k)];
+  const M1 = L(A, Cc, .56), M2 = L(B, Cc, .56), Q = [-.02, 0];
+  const regions = [[C.blue, [A, Q, B]], [C.green, [A, M1, Q]], [C.red, [B, Q, M2]], [C.yellow, [M1, Cc, M2, Q]]];
+  ctx.save(); ctx.globalAlpha *= alpha; ctx.translate(cx, cy); ctx.rotate(rot); ctx.scale(size, size);
+  ctx.lineJoin = 'round'; ctx.lineWidth = .07;
+  for (const [col, pts] of regions) {
+    ctx.beginPath(); pts.forEach((p, i) => i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])); ctx.closePath();
+    ctx.fillStyle = col; ctx.strokeStyle = col; ctx.fill(); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function glowCircle(x, y, r, col, a) { const g = ctx.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, col); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.globalAlpha = a; ctx.fillStyle = g; ctx.fillRect(x - r, y - r, r * 2, r * 2); ctx.globalAlpha = 1; }
+
+function rays(x, y, t, a) {
+  if (a <= 0) return;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(t * .35);
+  for (let i = 0; i < 14; i++) {
+    ctx.rotate(Math.PI * 2 / 14);
+    ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(1600, -110); ctx.lineTo(1600, 110); ctx.closePath();
+    const g = ctx.createLinearGradient(0, 0, 1600, 0); g.addColorStop(0, `rgba(255,255,255,${.16 * a})`); g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g; ctx.fill();
+  }
+  ctx.restore();
+}
+
+function shockwave(x, y, t, t0) {
+  const d = t - t0; if (d < 0 || d > .9) return;
+  [[0, '#FFFFFF'], [.06, C.blue], [.12, C.yellow]].forEach(([off, col]) => {
+    const k = prog(d - off, 0, .8); if (k <= 0 || k >= 1) return;
+    ctx.beginPath(); ctx.arc(x, y, 30 + eOutExpo(k) * 1300, 0, Math.PI * 2);
+    ctx.strokeStyle = col; ctx.globalAlpha = 1 - k; ctx.lineWidth = 40 * (1 - k) + 2; ctx.stroke(); ctx.globalAlpha = 1;
+  });
+}
+
+function makeBurst(seed, n) {
+  const r = rng(seed), out = [];
+  for (let i = 0; i < n; i++) out.push({ a: r() * Math.PI * 2, v: 900 + r() * 2600, s: 6 + r() * 18, c: PAL[Math.floor(r() * PAL.length)], life: .9 + r() * 1.6, g: .4 + r() * .8, spin: (r() - .5) * 18, rect: r() < .6 });
+  return out;
+}
+const BURST1 = makeBurst(11, 260), BURST2 = makeBurst(29, 300), BURST0 = makeBurst(7, 70);
+function drawBurst(list, t0, t, cx, cy) {
+  const d = t - t0; if (d < 0 || d > 2.6) return;
+  for (const p of list) {
+    if (d > p.life) continue;
+    const k = 3.2, dist = p.v * (1 - Math.exp(-k * d)) / k;
+    const x = cx + Math.cos(p.a) * dist, y = cy + Math.sin(p.a) * dist + 520 * p.g * d * d;
+    ctx.globalAlpha = 1 - d / p.life; ctx.fillStyle = p.c;
+    if (p.rect) { ctx.save(); ctx.translate(x, y); ctx.rotate(p.spin * d); ctx.scale(1, Math.cos(p.spin * d * 1.3)); ctx.fillRect(-p.s / 2, -p.s * .3, p.s, p.s * .6); ctx.restore(); }
+    else { ctx.beginPath(); ctx.arc(x, y, p.s * .35, 0, 7); ctx.fill(); }
+  }
+  ctx.globalAlpha = 1;
+}
+
+const RAIN = (() => { const r = rng(42), o = []; for (let i = 0; i < 150; i++) o.push({ x: r() * W, off: -r() * H * 1.2, sp: 260 + r() * 520, sw: 20 + r() * 60, ph: r() * 6.28, s: 10 + r() * 16, c: PAL[Math.floor(r() * 4)], rs: 2 + r() * 6 }); return o; })();
+function confettiRain(t) {
+  const d = t - 6.15; if (d < 0) return;
+  for (const p of RAIN) {
+    let y = p.off + d * p.sp; if (y < -40) continue;
+    y = ((y + 40) % (H + 80)) - 40;
+    const x = p.x + Math.sin(d * 2 + p.ph) * p.sw;
+    ctx.save(); ctx.translate(x, y); ctx.rotate(d * p.rs + p.ph); ctx.scale(1, Math.cos(d * p.rs * 1.4 + p.ph));
+    ctx.globalAlpha = .85; ctx.fillStyle = p.c; ctx.fillRect(-p.s / 2, -p.s * .3, p.s, p.s * .6); ctx.restore();
+  }
+  ctx.globalAlpha = 1;
+}
+
+function bg(t) {
+  ctx.fillStyle = '#05060a'; ctx.fillRect(0, 0, W, H);
+  const base = t < 3.6 ? .10 : t < 6 ? .16 : .26;
+  const k = kickEnv(t);
+  [C.blue, C.green, C.yellow, C.red].forEach((col, i) => {
+    const x = 540 + Math.sin(t * .45 + i * 1.7) * 420, y = 960 + Math.cos(t * .33 + i * 2.1) * 720;
+    glowCircle(x, y, 760, col, base + k * .12);
+  });
+  // grade de pontos
+  ctx.fillStyle = 'rgba(255,255,255,.06)';
+  const off = (t * 30) % 60;
+  for (let y = -60 + off; y < H; y += 60) for (let x = 30; x < W; x += 60) ctx.fillRect(x, y, 3, 3);
+}
+
+function gText(txt, x, y, font, fill, split = 0, align = 'center') {
+  ctx.font = font; ctx.textAlign = align; ctx.textBaseline = 'middle';
+  if (split > .5) {
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.fillStyle = 'rgba(255,0,70,.85)'; ctx.fillText(txt, x - split, y);
+    ctx.fillStyle = 'rgba(0,190,255,.85)'; ctx.fillText(txt, x + split, y + split * .3);
+    ctx.globalCompositeOperation = 'source-over';
+  }
+  ctx.fillStyle = fill; ctx.fillText(txt, x, y);
+}
+
+// Palavra que "bate" na tela
+function slam(txt, st, t, y, max, opts = {}) {
+  if (t < st) return;
+  const d = t - st, s = 1 + (opts.from ?? .9) * (1 - eOutExpo(prog(t, st, st + .16)));
+  const size = fitSize(txt, 'Anton', max, opts.maxW || 960);
+  ctx.save(); ctx.globalAlpha = prog(t, st, st + .04) * (opts.alpha ?? 1);
+  ctx.translate(540, y); ctx.scale(s, s);
+  ctx.font = `${size}px Anton`; const w = ctx.measureText(txt).width;
+  const fill = opts.grad ? playGrad(-w / 2, w / 2, (t * .25) % 1) : (opts.color || '#fff');
+  if (opts.glow) { ctx.shadowColor = opts.glow; ctx.shadowBlur = 40; }
+  gText(txt, 0, 0, `${size}px Anton`, fill, 22 * Math.exp(-d * 7));
+  ctx.restore();
+}
+
+// ---------- CENA 1: terminal ----------
+const TL = [[.25, '$ sudo virar_dev_android'], [1.0, '> verificando coragem..... OK'], [1.55, '> verificando café........ OK'], [2.1, '> pagando taxa: US$ 25,00'], [2.7, '> aguardando o Google']];
+function sceneTerminal(t) {
+  ctx.globalAlpha = prog(t, 0, .25);
+  gText('05:18 da manhã.', 540, 330, '900 84px Inter', '#fff');
+  gText('um dev, um sonho, um cartão.', 540, 420, '500 40px Inter', 'rgba(255,255,255,.6)');
+  const x0 = 70, y0 = 560, w = 940, h = 640;
+  ctx.shadowColor = 'rgba(0,230,118,.25)'; ctx.shadowBlur = 60;
+  ctx.fillStyle = 'rgba(10,14,20,.94)'; rr(x0, y0, w, h, 30); ctx.fill(); ctx.shadowBlur = 0;
+  ctx.strokeStyle = 'rgba(124,255,178,.28)'; ctx.lineWidth = 2; ctx.stroke();
+  ['#FF5F57', '#FEBC2E', '#28C840'].forEach((c, i) => { ctx.fillStyle = c; ctx.beginPath(); ctx.arc(x0 + 46 + i * 38, y0 + 42, 12, 0, 7); ctx.fill(); });
+  gText('~/sonhos/android', x0 + w / 2, y0 + 42, '500 26px "JetBrains Mono"', 'rgba(255,255,255,.4)');
+  ctx.font = '700 38px "JetBrains Mono"'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+  let cx = x0 + 50, cy = y0 + 140;
+  TL.forEach(([st, s], i) => {
+    if (t < st) return;
+    const n = Math.min(s.length, Math.floor((t - st) * 40));
+    const y = y0 + 140 + i * 96, txt = s.slice(0, n);
+    ctx.fillStyle = i === 0 ? '#FFFFFF' : '#9BE7C4'; ctx.fillText(txt, x0 + 50, y);
+    if (n === s.length && s.endsWith('OK')) {
+      const px = x0 + 50 + ctx.measureText(s.slice(0, -2)).width;
+      ctx.shadowColor = C.green; ctx.shadowBlur = 20; ctx.fillStyle = C.green; ctx.fillText('OK', px, y); ctx.shadowBlur = 0;
+    }
+    cx = x0 + 50 + ctx.measureText(txt).width; cy = y;
+    if (i === 4 && n === s.length) {
+      const dots = '.'.repeat(Math.floor(t * 6) % 4); ctx.fillStyle = C.yellow; ctx.fillText(dots, cx, y);
+      cx += ctx.measureText('...').width + 10;
+    }
+  });
+  if (Math.floor(t * 4) % 2 === 0) { ctx.fillStyle = C.green; ctx.fillRect(cx + 6, cy - 22, 22, 44); }
+  // scanlines
+  ctx.fillStyle = 'rgba(0,0,0,.18)'; for (let y = y0; y < y0 + h; y += 4) ctx.fillRect(x0, y, w, 1);
+  ctx.globalAlpha = 1;
+}
+
+// ---------- CENA 2: comprovante ----------
+function sceneReceipt(t) {
+  const ent = eOutBack(prog(t, 3.55, 4.15)), top = 420 + (1 - ent) * 1500;
+  const zk = Math.pow(prog(t, 5.05, 5.875), 2);
+  gText('o investimento:', 540, 270, '800 64px Inter', '#fff');
+  ctx.save(); ctx.translate(540, 940); ctx.scale(1 + .4 * zk, 1 + .4 * zk); ctx.rotate(-.05 * zk); ctx.translate(-540, -940);
+  ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 70; ctx.shadowOffsetY = 24;
+  ctx.fillStyle = '#fff'; rr(110, top, 860, 1000, 44); ctx.fill();
+  ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
+  const show = i => prog(t, 3.9 + i * .08, 4.1 + i * .08);
+  const dark = '#202124', gray = '#5f6368';
+  drawPlay(540, top + 85, 78);
+  ctx.globalAlpha = show(0); gText('Google Play Console Signup Fee', 540, top + 180, '600 38px Inter', dark);
+  const v = 25 * eOutExpo(prog(t, 3.9, 4.5));
+  ctx.globalAlpha = show(1); gText('US$ ' + v.toFixed(2).replace('.', ','), 540, top + 310, '800 132px Inter', dark);
+  ctx.fillStyle = '#e3e3e3'; ctx.fillRect(170, top + 420, 740, 3);
+  ctx.letterSpacing = '4px';
+  ctx.globalAlpha = show(2); gText('DATA', 170, top + 490, '700 26px Inter', gray, 0, 'left'); gText('HORA', 910, top + 490, '700 26px Inter', gray, 0, 'right');
+  ctx.letterSpacing = '0px';
+  gText('Hoje', 170, top + 545, '400 42px Inter', dark, 0, 'left'); gText('05:18', 910, top + 545, '400 42px Inter', dark, 0, 'right');
+  ctx.globalAlpha = show(3); gText('Google Play Console Signup Fee', 170, top + 650, '400 32px Inter', dark, 0, 'left');
+  ctx.fillStyle = '#9e9e9e'; ctx.fillRect(170, top + 705, 740, 4);
+  ctx.globalAlpha = show(4); gText('Total', 170, top + 775, '400 38px Inter', dark, 0, 'left'); gText('US$ 25,00', 910, top + 775, '800 38px Inter', dark, 0, 'right');
+  ctx.letterSpacing = '4px'; gText('STATUS', 170, top + 870, '700 26px Inter', gray, 0, 'left'); ctx.letterSpacing = '0px';
+  if (t < 5) gText('Processando' + '.'.repeat(Math.floor(t * 6) % 4), 170, top + 930, '600 44px Inter', gray, 0, 'left');
+  else gText('Concluída', 170, top + 930, '800 46px Inter', '#0F9D58', 0, 'left');
+  ctx.globalAlpha = 1;
+  if (t >= 5) { // carimbo
+    const k = eOutExpo(prog(t, 5, 5.14)), s = 1 + 2.4 * (1 - k);
+    ctx.save(); ctx.translate(560, top + 600); ctx.rotate(-.22); ctx.scale(s, s); ctx.globalAlpha = .93 * prog(t, 4.98, 5.03);
+    ctx.strokeStyle = '#00C853'; ctx.lineWidth = 14; rr(-330, -105, 660, 210, 26); ctx.stroke();
+    ctx.lineWidth = 4; rr(-305, -82, 610, 164, 16); ctx.stroke();
+    gText('APROVADO', 0, 6, '150px Anton', '#00C853');
+    ctx.restore();
+  }
+  ctx.restore();
+  drawBurst(BURST0, 5.0, t, 560, top + 600);
+  ctx.globalAlpha = prog(t, 4.5, 4.7) * (1 - prog(t, 5.2, 5.4));
+  gText('melhor compra da minha vida', 540, 1530, '700 48px Inter', '#fff');
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = `rgba(0,0,0,${.55 * prog(t, 5.2, 5.875)})`; ctx.fillRect(-100, -100, W + 200, H + 200);
+}
+
+// ---------- CENA 3: drop + palavras ----------
+function sceneDrop(t) {
+  const k = kickEnv(t);
+  const move = eInOut(prog(t, 6.6, 7.0));
+  const triY = lerp(900, 560, move);
+  const size = 600 * eOutBack(prog(t, 6.0, 6.45)) * (1 - .4 * move) * (1 + .07 * k);
+  rays(540, triY, t, prog(t, 6, 6.3));
+  glowCircle(540, triY, 520, 'rgba(255,255,255,.55)', .35 + .3 * k);
+  shockwave(540, 900, t, 6.0);
+  drawPlay(540, triY, size, Math.sin(t * 2.2) * .06);
+  drawBurst(BURST1, 6.0, t, 540, 900);
+  const words = [[7.0, 'AGORA'], [7.5, 'EU SOU'], [8.0, 'OFICIALMENTE']];
+  words.forEach(([st, w], i) => { const end = i < 2 ? words[i + 1][0] : 8.5; if (t >= st && t < end) slam(w, st, t, 1200, 250, { color: '#fff' }); });
+  if (t >= 8.5) slam('GOOGLE PLAY', 8.5, t, 1130, 200, { color: '#fff' });
+  if (t >= 9.0) slam('DEVELOPER', 9.0, t, 1340, 250, { grad: true, glow: 'rgba(0,163,255,.6)' });
+  ctx.globalAlpha = prog(t, 9.5, 9.7); ctx.letterSpacing = '8px';
+  gText('✓ 02 · 10 · 2026', 540, 1490, '700 40px "JetBrains Mono"', C.green);
+  ctx.letterSpacing = '0px'; ctx.globalAlpha = 1;
+}
+
+// ---------- CENA 4: checklist ----------
+const ITEMS = [[10.5, 'Conta de dev criada'], [11.0, 'Taxa paga: US$ 25'], [11.5, 'Desculpas: zero'], [12.0, 'Primeiro app na loja']];
+function check(x, y, st, t) {
+  const s = eOutBack(prog(t, st, st + .25)); if (s <= 0) return;
+  ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+  ctx.fillStyle = C.green; ctx.shadowColor = C.green; ctx.shadowBlur = 25; ctx.beginPath(); ctx.arc(0, 0, 36, 0, 7); ctx.fill(); ctx.shadowBlur = 0;
+  const p = prog(t, st + .08, st + .3);
+  ctx.strokeStyle = '#05060a'; ctx.lineWidth = 9; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.beginPath(); ctx.moveTo(-16, 1);
+  const a = clamp(p * 2), b = clamp(p * 2 - 1);
+  ctx.lineTo(-16 + 11 * a, 1 + 13 * a); if (b > 0) ctx.lineTo(-5 + 22 * b, 14 - 28 * b); ctx.stroke();
+  ctx.restore();
+}
+function sceneChecklist(t) {
+  drawPlay(540, 300, 150 * eOutBack(prog(t, 10.5, 10.8)) * (1 + .08 * kickEnv(t)), Math.sin(t * 2) * .08);
+  slam('CHECKLIST DO DEV', 10.5, t, 490, 130, { color: '#fff' });
+  ITEMS.forEach(([st, txt], i) => {
+    if (t < st) return;
+    const x = 90 + (1 - eOutBack(prog(t, st, st + .3))) * 1100, y = 640 + i * 175;
+    ctx.fillStyle = 'rgba(255,255,255,.08)'; rr(x, y, 900, 140, 32); ctx.fill();
+    ctx.strokeStyle = i === 3 ? 'rgba(255,196,0,.6)' : 'rgba(255,255,255,.18)'; ctx.lineWidth = 2; ctx.stroke();
+    gText(txt, x + 150, y + (i === 3 ? 58 : 70), '700 46px Inter', '#fff', 0, 'left');
+    if (i < 3) check(x + 80, y + 70, st + .1, t);
+    else {
+      const p = eInOut(prog(t, 12.1, 12.95));
+      ctx.save(); ctx.translate(x + 80, y + 70); ctx.rotate(t * 9); ctx.strokeStyle = C.yellow; ctx.lineWidth = 8; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.arc(0, 0, 30, 0, 4.4); ctx.stroke(); ctx.restore();
+      ctx.fillStyle = 'rgba(255,255,255,.12)'; rr(x + 150, y + 98, 600, 14, 7); ctx.fill();
+      if (p > 0) { ctx.fillStyle = playGrad(x + 150, x + 750); rr(x + 150, y + 98, Math.max(14, 600 * p), 14, 7); ctx.fill(); }
+      gText(Math.round(p * 100) + '%', x + 860, y + 104, '800 34px "JetBrains Mono"', C.yellow, 0, 'right');
+    }
+  });
+  ctx.globalAlpha = prog(t, 12.2, 12.4);
+  gText('carregando o próximo capítulo...', 540, 1430, '600 40px Inter', 'rgba(255,255,255,.7)');
+  ctx.globalAlpha = 1;
+}
+
+// ---------- CENA 5: final ----------
+function sceneFinal(t) {
+  const k = kickEnv(t);
+  rays(540, 640, t, prog(t, 13, 13.3));
+  glowCircle(540, 640, 560, 'rgba(255,255,255,.55)', .35 + .3 * k);
+  shockwave(540, 640, t, 13.0);
+  drawPlay(540, 640 + Math.sin(t * 3) * 14, 420 * eOutBack(prog(t, 13, 13.4)) * (1 + .07 * k), Math.sin(t * 2.2) * .06);
+  drawBurst(BURST2, 13.0, t, 540, 640);
+  slam('EM BREVE', 13.0, t, 1090, 250, { grad: true, glow: 'rgba(255,196,0,.5)' });
+  slam('NA GOOGLE PLAY', 13.5, t, 1270, 130, { color: '#fff' });
+  ctx.globalAlpha = prog(t, 14.0, 14.3);
+  gText('meu primeiro app tá chegando 🚀', 540, 1400, `600 46px Inter, ${EMOJI}`, 'rgba(255,255,255,.85)');
+  if (HANDLE) { ctx.globalAlpha = prog(t, 14.5, 14.8); gText(HANDLE, 540, 1480, '700 44px "JetBrains Mono"', C.green); }
+  ctx.globalAlpha = 1;
+}
+
+function glitch(R, n, amt) {
+  for (let i = 0; i < n; i++) {
+    const sy = R() * H, h = 8 + R() * 110, off = (R() - .5) * amt;
+    ctx.drawImage(cv, 0, sy, W, h, off, sy, W, h);
+  }
+}
+
+function render(t) {
+  const R = rng(Math.round(t * 30) * 7919 + 3);
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+  bg(t);
+  const sh = shake(t);
+  ctx.save(); ctx.translate((R() - .5) * 2 * sh, (R() - .5) * 2 * sh);
+  if (t < 3.6) sceneTerminal(t);
+  else if (t < 6.0) sceneReceipt(t);
+  else if (t < 10.5) sceneDrop(t);
+  else if (t < 13.0) sceneChecklist(t);
+  else sceneFinal(t);
+  confettiRain(t);
+  ctx.restore();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  // glitches
+  if (t > 3.3 && t < 3.62) glitch(R, 14, 220);
+  for (const [h] of HITS) if (t >= h && t < h + .1) glitch(R, 5, 120);
+  // flashes
+  for (const [h, a, dur] of FLASHES) { const d = t - h; if (d >= 0 && d < dur) { ctx.fillStyle = `rgba(255,255,255,${a * (1 - d / dur)})`; ctx.fillRect(0, 0, W, H); } }
+  // vinheta
+  const v = ctx.createRadialGradient(540, 960, 500, 540, 960, 1250); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.7)');
+  ctx.fillStyle = v; ctx.fillRect(0, 0, W, H);
+  // silêncio dramático antes dos drops
+  if ((t >= 5.875 && t < 6.0) || (t >= 12.875 && t < 13.0)) { ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); }
+  // fade final
+  if (t > 15.4) { ctx.fillStyle = `rgba(0,0,0,${prog(t, 15.4, 16)})`; ctx.fillRect(0, 0, W, H); }
+}
+window.render = render;
+window.ready = document.fonts.load('100px Anton').then(() => Promise.all([document.fonts.load('900 80px Inter'), document.fonts.load('500 80px Inter'), document.fonts.load('700 80px Inter'), document.fonts.load('400 80px Inter'), document.fonts.load('600 80px Inter'), document.fonts.load('800 80px Inter'), document.fonts.load('700 40px "JetBrains Mono"'), document.fonts.load('500 40px "JetBrains Mono"')])).then(() => document.fonts.ready);
+// prévia ao vivo no navegador (sem ?t=)
+const qt = new URLSearchParams(location.search).get('t');
+window.ready.then(() => {
+  if (qt !== null) { render(+qt); return; }
+  if (navigator.webdriver) return;
+  const t0 = performance.now(); (function loop() { render(((performance.now() - t0) / 1000) % 16); requestAnimationFrame(loop); })();
+});
+</script>
+</body>
+</html>
