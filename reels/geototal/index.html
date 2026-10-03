@@ -205,7 +205,7 @@ function sceneScore(t) {
   sticker('0/3 😭', 11.75, t, 300, 850, 64, '#fff', C.navy, -.08);
   sticker('2/3 😎', 11.9, t, 760, 960, 64, '#fff', C.navy, .07);
   sticker('3/3 🧠', 12.05, t, 360, 1100, 64, C.green, '#05230f', .03);
-  sticker(STORY ? 'me conta no direct 📩' : 'comenta aí 👇', 12.1, t, 540, 1300, 54, C.orange, '#1a1000', -.02);
+  sticker(STORY ? 'responde aí 👇' : 'comenta aí 👇', 12.1, t, 540, 1300, 54, C.orange, '#1a1000', -.02);
 }
 
 function sceneApp(t) {
@@ -265,8 +265,9 @@ function sceneCTA(t) {
     return;
   }
   // 22.5–26: comenta EU (reels) / toca no link (story, com espaço livre pro adesivo de link)
-  if (STORY) { sceneLink(t); return; }
-  slam('COMENTA', 22.5, t, 380, 190);
+  // ?link=1: final "toca no link" com espaço pro adesivo de link
+  if (STORY && new URLSearchParams(location.search).get('link') === '1') { sceneLink(t); return; }
+  slam(STORY ? 'RESPONDE' : 'COMENTA', 22.5, t, 380, 190);
   slam('“EU” 👇', 22.5, t, 600, 260, { grad: true });
   // caixa de comentário digitando
   const a = eOutBack(prog(t, 22.8, 23.1));
