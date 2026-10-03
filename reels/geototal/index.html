@@ -205,7 +205,7 @@ function sceneScore(t) {
   sticker('0/3 😭', 11.75, t, 300, 850, 64, '#fff', C.navy, -.08);
   sticker('2/3 😎', 11.9, t, 760, 960, 64, '#fff', C.navy, .07);
   sticker('3/3 🧠', 12.05, t, 360, 1100, 64, C.green, '#05230f', .03);
-  sticker(STORY ? 'responde aí 👇' : 'comenta aí 👇', 12.1, t, 540, 1300, 54, C.orange, '#1a1000', -.02);
+  sticker(STORY ? 'me conta no direct 📩' : 'comenta aí 👇', 12.1, t, 540, 1300, 54, C.orange, '#1a1000', -.02);
 }
 
 function sceneApp(t) {
@@ -264,8 +264,9 @@ function sceneCTA(t) {
     sticker('essa vaga é sua? 👆', 21.75, t, 540, 1500, 46, '#fff', C.navy, .03);
     return;
   }
-  // 22.5–26: comenta EU
-  slam(STORY ? 'RESPONDE' : 'COMENTA', 22.5, t, 380, 190);
+  // 22.5–26: comenta EU (reels) / toca no link (story, com espaço livre pro adesivo de link)
+  if (STORY) { sceneLink(t); return; }
+  slam('COMENTA', 22.5, t, 380, 190);
   slam('“EU” 👇', 22.5, t, 600, 260, { grad: true });
   // caixa de comentário digitando
   const a = eOutBack(prog(t, 22.8, 23.1));
@@ -290,6 +291,22 @@ function sceneCTA(t) {
   const lk = eOutBack(prog(t, 24.2, 24.5));
   logo(540, 1290, 170 * lk); wordmark(540, 1440, 90, prog(t, 24.35, 24.55));
   if (HANDLE) { ctx.globalAlpha = prog(t, 24.6, 24.8); text(HANDLE, 540, 1530, '700 42px "JetBrains Mono"', C.yellow); ctx.globalAlpha = 1; }
+}
+
+function sceneLink(t) {
+  slam('TOCA NO', 22.5, t, 330, 190);
+  slam('LINK 👇', 22.5, t, 530, 250, { grad: true });
+  // seta pulando apontando pro espaço do adesivo (y ~ 760 + 80 do deslocamento do story)
+  const a = prog(t, 22.9, 23.1), bob = Math.sin(t * 9) * 14;
+  ctx.globalAlpha = a; ctx.fillStyle = C.yellow;
+  ctx.beginPath(); ctx.moveTo(500, 665 + bob); ctx.lineTo(580, 665 + bob); ctx.lineTo(540, 705 + bob); ctx.closePath(); ctx.fill();
+  ctx.globalAlpha = 1;
+  ctx.globalAlpha = prog(t, 23.6, 23.85);
+  text('e entra pro time de testadores', 540, 1000, '800 52px Inter', '#fff', 'center', 6);
+  text('teste o app ANTES de todo mundo 📲', 540, 1070, `700 44px Inter, ${EM}`, 'rgba(255,255,255,.85)', 'center', 5);
+  ctx.globalAlpha = 1;
+  const lk = eOutBack(prog(t, 24.2, 24.5));
+  logo(540, 1260, 170 * lk); wordmark(540, 1410, 90, prog(t, 24.35, 24.55));
 }
 
 function glitch(R, n, amt) { for (let i = 0; i < n; i++) { const sy = R() * H, h = 8 + R() * 90, off = (R() - .5) * amt; ctx.drawImage(cv, 0, sy, W, h, off, sy, W, h); } }
