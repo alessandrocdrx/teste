@@ -17,6 +17,8 @@ const C = { navy: '#0A1230', navy2: '#14204A', orange: '#FF9500', yellow: '#FFC9
 const PLAY = ['#00A3FF', '#00E676', '#FFC400', '#FF3D57'];
 const CONF = [C.orange, C.yellow, C.green, C.blue, C.red, '#FFFFFF'];
 const HANDLE = new URLSearchParams(location.search).get('handle') || '';
+// ?story=1: versão pra story (responder em vez de comentar, conteúdo abaixo da barra do topo)
+const STORY = new URLSearchParams(location.search).get('story') === '1';
 
 const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
 const prog = (t, a, b) => clamp((t - a) / (b - a));
@@ -203,7 +205,7 @@ function sceneScore(t) {
   sticker('0/3 😭', 11.75, t, 300, 850, 64, '#fff', C.navy, -.08);
   sticker('2/3 😎', 11.9, t, 760, 960, 64, '#fff', C.navy, .07);
   sticker('3/3 🧠', 12.05, t, 360, 1100, 64, C.green, '#05230f', .03);
-  sticker('comenta aí 👇', 12.1, t, 540, 1300, 54, C.orange, '#1a1000', -.02);
+  sticker(STORY ? 'responde aí 👇' : 'comenta aí 👇', 12.1, t, 540, 1300, 54, C.orange, '#1a1000', -.02);
 }
 
 function sceneApp(t) {
@@ -263,7 +265,7 @@ function sceneCTA(t) {
     return;
   }
   // 22.5–26: comenta EU
-  slam('COMENTA', 22.5, t, 380, 190);
+  slam(STORY ? 'RESPONDE' : 'COMENTA', 22.5, t, 380, 190);
   slam('“EU” 👇', 22.5, t, 600, 260, { grad: true });
   // caixa de comentário digitando
   const a = eOutBack(prog(t, 22.8, 23.1));
@@ -273,7 +275,7 @@ function sceneCTA(t) {
     ctx.fillStyle = C.orange; ctx.beginPath(); ctx.arc(-370, 0, 46, 0, 7); ctx.fill(); text('😎', -370, 3, `50px ${EM}`, '#fff');
     const chars = Array.from('EU 🙋'), n = clamp(Math.floor((t - 23.15) * 8), 0, chars.length);
     const s = chars.slice(0, n).join('');
-    if (n === 0) text('Adicione um comentário...', -290, 2, '500 44px Inter', '#9aa0a6', 'left');
+    if (n === 0) text(STORY ? 'Enviar mensagem...' : 'Adicione um comentário...', -290, 2, '500 44px Inter', '#9aa0a6', 'left');
     else text(s, -290, 2, `800 56px Inter, ${EM}`, C.navy, 'left');
     if (n < chars.length && Math.floor(t * 4) % 2 === 0) { ctx.font = `800 56px Inter, ${EM}`; ctx.fillStyle = C.orange; ctx.fillRect(-290 + ctx.measureText(s).width + 6, -30, 6, 60); }
     const sendOn = n === chars.length; const sp = sendOn ? 1 + .15 * Math.max(0, Math.sin((t - 23.8) * 10)) * Math.exp(-(t - 23.8) * 2) : 1;
@@ -282,7 +284,7 @@ function sceneCTA(t) {
     ctx.restore();
   }
   ctx.globalAlpha = prog(t, 23.6, 23.85);
-  text('que eu te mando o link', 540, 1030, '800 52px Inter', '#fff', 'center', 6);
+  text(STORY ? 'que eu te mando o link no direct' : 'que eu te mando o link', 540, 1030, '800 52px Inter', '#fff', 'center', 6);
   text('pra testar ANTES de todo mundo 📲', 540, 1100, `700 44px Inter, ${EM}`, 'rgba(255,255,255,.85)', 'center', 5);
   ctx.globalAlpha = 1;
   const lk = eOutBack(prog(t, 24.2, 24.5));
@@ -296,7 +298,7 @@ function render(t) {
   const R = rng(Math.round(t * 30) * 7919 + 5);
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
   bg(t);
-  const sh = shake(t); ctx.save(); ctx.translate((R() - .5) * 2 * sh, (R() - .5) * 2 * sh);
+  const sh = shake(t); ctx.save(); ctx.translate((R() - .5) * 2 * sh, (R() - .5) * 2 * sh + (STORY ? 80 : 0));
   if (t < 2.5) sceneHook(t);
   else if (t < 11.5) { const n = Math.min(2, Math.floor((t - 2.5) / 3)); sceneQuiz(t, QUIZ[n], n); }
   else if (t < 12.5) sceneScore(t);

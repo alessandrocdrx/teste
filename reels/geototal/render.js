@@ -3,13 +3,13 @@
 const { chromium } = require('playwright');
 const { execSync } = require('child_process');
 const fs = require('fs'), path = require('path');
-const FPS = 30, DUR = 26, handle = process.argv[2] || '';
+const FPS = 30, DUR = 26, story = process.argv.includes('--story'), handle = process.argv.slice(2).find(a => a !== '--story') || '';
 const out = path.join(__dirname, 'out'), frames = path.join(out, 'frames');
 (async () => {
   fs.rmSync(frames, { recursive: true, force: true }); fs.mkdirSync(frames, { recursive: true });
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
-  await page.goto('file://' + path.join(__dirname, 'index.html') + (handle ? '?handle=' + encodeURIComponent(handle) : ''));
+  await page.goto('file://' + path.join(__dirname, 'index.html') + '?story=' + (story ? 1 : 0) + (handle ? '&handle=' + encodeURIComponent(handle) : ''));
   await page.evaluate(() => window.ready);
   for (let f = 0; f < FPS * DUR; f++) {
     await page.evaluate(t => window.render(t), f / FPS);
@@ -18,6 +18,6 @@ const out = path.join(__dirname, 'out'), frames = path.join(out, 'frames');
   }
   await browser.close();
   execSync('node ' + path.join(__dirname, 'audio.js'), { stdio: 'inherit' });
-  execSync(`ffmpeg -y -loglevel error -framerate ${FPS} -i ${frames}/%05d.jpg -i ${out}/trilha.wav -c:v libx264 -preset slow -crf 17 -pix_fmt yuv420p -c:a aac -b:a 192k -shortest -movflags +faststart ${out}/reels_geototal.mp4`, { stdio: 'inherit' });
-  console.log('pronto:', out + '/reels_geototal.mp4');
+  execSync(`ffmpeg -y -loglevel error -framerate ${FPS} -i ${frames}/%05d.jpg -i ${out}/trilha.wav -c:v libx264 -preset slow -crf 17 -pix_fmt yuv420p -c:a aac -b:a 192k -shortest -movflags +faststart ${out}/${story ? 'story_geototal' : 'reels_geototal'}.mp4`, { stdio: 'inherit' });
+  console.log('pronto:', out + (story ? '/story_geototal.mp4' : '/reels_geototal.mp4'));
 })();
