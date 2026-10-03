@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Story Serviços de Fogão</title>
+<link href="../fonts/fonts.css" rel="stylesheet">
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block}</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// Story de divulgação de serviços de fogão/cooktop. 1080x1920, 20s, 120 BPM.
+// Parâmetros: ?nome=Fulano%20Gás&zap=(11)%2099999-9999&cidade=Campinas%20e%20região
+const W = 1080, H = 1920, DUR = 20;
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const EM = '"Noto Color Emoji"';
+const Q = new URLSearchParams(location.search);
+const NOME = Q.get('nome') || '', ZAP = Q.get('zap') || '', CIDADE = Q.get('cidade') || '';
+const C = { blue: '#2E9BFF', ice: '#BFE6FF', orange: '#FF8A1F', yellow: '#FFD23F', green: '#25D366', red: '#FF4D5E', bg: '#0B0D12' };
+
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+const eOutExpo = x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
+const eOutBack = x => { const c1 = 2.2, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const eInOut = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+// fotos (o cooktop preto é recortado pra tirar a faixa do canto)
+const PH = {
+  vermelho: { src: 'cooktop-vermelho.jpg', crop: null },
+  preto: { src: 'cooktop-preto.jpg', crop: [0, 150, 760, 810] },
+  inox: { src: 'fogao-inox.jpg', crop: null },
+  forno: { src: 'forno.jpg', crop: [0, 250, 1200, 1350] },
+};
+const imgReady = Promise.all(Object.values(PH).map(p => new Promise(res => { const i = new Image(); i.onload = res; i.onerror = res; i.src = 'img/' + p.src; p.img = i; })));
+
+const HITS = [[.35, 30], [2.5, 16], [5.0, 20], [6.0, 50], [6.5, 14], [8.5, 14], [10.5, 14], [12.5, 14], [14.5, 20], [17.0, 34]];
+const FLASHES = [[.35, .8, .35], [6.0, 1, .4], [14.5, .3, .15], [17.0, .5, .25]];
+function shake(t) { let s = 0; for (const [h, a] of HITS) { const d = t - h; if (d >= 0 && d < .7) s += a * Math.exp(-d * 9); } return s; }
+function kickEnv(t) { if (t < 6 || t >= 19.5) return 0; const ph = t % 2; let best = 9; for (const p of [0, 3, 8, 11]) { const d = ph - p * .125; if (d >= 0) best = Math.min(best, d); } return Math.exp(-best * 10); }
+
+function rr(x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+function fitSize(txt, font, max, maxW) { ctx.font = font.replace('$', max); const w = ctx.measureText(txt).width; return Math.min(max, max * maxW / w); }
+function text(txt, x, y, font, fill, align = 'center', stroke = 0) {
+  ctx.font = font; ctx.textAlign = align; ctx.textBaseline = 'middle';
+  if (stroke) { ctx.lineJoin = 'round'; ctx.lineWidth = stroke; ctx.strokeStyle = 'rgba(0,0,0,.85)'; ctx.strokeText(txt, x, y); }
+  ctx.fillStyle = fill; ctx.fillText(txt, x, y);
+}
+function grad(x0, x1, a, b) { const g = ctx.createLinearGradient(x0, 0, x1, 0); g.addColorStop(0, a); g.addColorStop(1, b); return g; }
+function glow(x, y, r, col, a) { const g = ctx.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, col); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.globalAlpha = a; ctx.fillStyle = g; ctx.fillRect(x - r, y - r, r * 2, r * 2); ctx.globalAlpha = 1; }
+
+function slam(txt, st, t, y, max, o = {}) {
+  if (t < st) return;
+  const d = t - st, s = 1 + (o.from ?? .8) * (1 - eOutExpo(prog(t, st, st + .16)));
+  const size = fitSize(txt, '$px Anton, ' + EM, max, o.maxW || 960), font = `${size}px Anton, ${EM}`;
+  ctx.save(); ctx.globalAlpha = prog(t, st, st + .04) * (o.alpha ?? 1); ctx.translate(540, y); ctx.scale(s, s);
+  ctx.font = font; const w = ctx.measureText(txt).width;
+  const split = 16 * Math.exp(-d * 8);
+  if (split > .5) { ctx.globalCompositeOperation = 'lighter'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = 'rgba(255,90,40,.6)'; ctx.fillText(txt, -split, 0); ctx.fillStyle = 'rgba(40,150,255,.6)'; ctx.fillText(txt, split, 0); ctx.globalCompositeOperation = 'source-over'; }
+  text(txt, 0, 0, font, o.g ? grad(-w / 2, w / 2, o.g[0], o.g[1]) : (o.color || '#fff'), 'center', size * .09);
+  ctx.restore();
+}
+function sticker(txt, st, t, x, y, size, bg, fg, rot = 0) {
+  if (t < st) return; const s = eOutBack(prog(t, st, st + .28)); if (s <= 0) return;
+  const font = `900 ${size}px Inter, ${EM}`; ctx.font = font; const w = ctx.measureText(txt).width;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(s, s);
+  ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 24; ctx.shadowOffsetY = 8; ctx.fillStyle = bg; rr(-w / 2 - 30, -size * .85, w + 60, size * 1.7, size * .5); ctx.fill(); ctx.shadowColor = 'transparent';
+  text(txt, 0, 2, font, fg); ctx.restore();
+}
+
+// ---------- queimador desenhado (chama azul certa x chama amarela com problema) ----------
+function burner(cx, cy, r, t, mode = 'blue', ign = 1) {
+  const sq = .36, N = 30;
+  ctx.save();
+  glow(cx, cy - r * .1, r * 2.2, mode === 'blue' ? 'rgba(46,155,255,1)' : 'rgba(255,140,30,1)', .35 * ign);
+  // base de metal
+  ctx.fillStyle = '#3a3f48'; ctx.beginPath(); ctx.ellipse(cx, cy + r * .08, r * 1.5, r * 1.5 * sq, 0, 0, 7); ctx.fill();
+  ctx.fillStyle = '#8a929e'; ctx.beginPath(); ctx.ellipse(cx, cy, r * 1.38, r * 1.38 * sq, 0, 0, 7); ctx.fill();
+  ctx.fillStyle = '#5b626d'; ctx.beginPath(); ctx.ellipse(cx, cy, r * 1.1, r * 1.1 * sq, 0, 0, 7); ctx.fill();
+  const flames = [];
+  for (let i = 0; i < N; i++) {
+    const a = i / N * Math.PI * 2, x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r * sq;
+    let h, w;
+    if (mode === 'blue') { h = r * (.26 + .05 * Math.sin(t * 23 + i * 1.7) + .03 * Math.sin(t * 37 + i)); w = r * .07; }
+    else { h = r * (.55 + .22 * Math.sin(t * 9 + i * 2.3) + .12 * Math.sin(t * 17 + i * .7)); w = r * .1; }
+    flames.push([Math.sin(a), x, y, h * ign, w, Math.cos(a)]);
+  }
+  const draw = f => {
+    const [, x, y, h, w, ca] = f; if (h <= 1) return;
+    const lean = ca * w * .8 + (mode === 'blue' ? 0 : Math.sin(t * 6 + x) * w * 1.5);
+    const g = ctx.createLinearGradient(0, y, 0, y - h);
+    if (mode === 'blue') { g.addColorStop(0, 'rgba(210,240,255,.95)'); g.addColorStop(.35, 'rgba(60,160,255,.9)'); g.addColorStop(1, 'rgba(30,90,255,0)'); }
+    else { g.addColorStop(0, 'rgba(80,140,255,.8)'); g.addColorStop(.18, 'rgba(255,240,150,.95)'); g.addColorStop(.6, 'rgba(255,140,30,.8)'); g.addColorStop(1, 'rgba(255,80,0,0)'); }
+    ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(x - w, y); ctx.quadraticCurveTo(x - w, y - h * .5, x + lean, y - h); ctx.quadraticCurveTo(x + w, y - h * .5, x + w, y); ctx.closePath(); ctx.fill();
+  };
+  ctx.globalCompositeOperation = 'lighter';
+  flames.filter(f => f[0] < 0).forEach(draw);
+  ctx.globalCompositeOperation = 'source-over';
+  // tampa
+  ctx.fillStyle = '#15171c'; ctx.beginPath(); ctx.ellipse(cx, cy - r * .06, r * .92, r * .92 * sq, 0, 0, 7); ctx.fill();
+  ctx.fillStyle = '#23262d'; ctx.beginPath(); ctx.ellipse(cx, cy - r * .12, r * .8, r * .8 * sq, 0, 0, 7); ctx.fill();
+  ctx.globalCompositeOperation = 'lighter';
+  flames.filter(f => f[0] >= 0).forEach(draw);
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.restore();
+}
+// fumacinha preta da chama amarela
+function soot(cx, cy, t) {
+  for (let i = 0; i < 7; i++) {
+    const k = ((t * .6 + i / 7) % 1), x = cx + Math.sin(i * 2.1 + t) * 120 * k, y = cy - 150 - k * 420;
+    ctx.globalAlpha = .35 * (1 - k) * Math.min(1, k * 5); ctx.fillStyle = '#2a2a2a';
+    ctx.beginPath(); ctx.arc(x, y, 40 + k * 90, 0, 7); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+}
+function sparks(cx, cy, t, t0) {
+  const d = t - t0; if (d < 0 || d > .25) return; const r = rng(Math.round(t0 * 100));
+  ctx.fillStyle = '#fff';
+  for (let i = 0; i < 14; i++) { const a = r() * 6.28, v = 200 + r() * 500; ctx.globalAlpha = 1 - d / .25; ctx.fillRect(cx + Math.cos(a) * v * d, cy + Math.sin(a) * v * d * .5, 5, 5); }
+  ctx.globalAlpha = 1;
+}
+
+function drawCover(img, crop, dx, dy, dw, dh, zoom = 1, ox = 0, oy = 0) {
+  if (!img || !img.width) return;
+  const [sx, sy, sw, sh] = crop || [0, 0, img.width, img.height];
+  const s = Math.max(dw / sw, dh / sh) * zoom, w = sw * s, h = sh * s;
+  ctx.drawImage(img, sx, sy, sw, sh, dx + (dw - w) / 2 + ox, dy + (dh - h) / 2 + oy, w, h);
+}
+function photoCard(p, cx, cy, w, h, zoom, rot, a = 1) {
+  ctx.save(); ctx.globalAlpha = a; ctx.translate(cx, cy); ctx.rotate(rot);
+  ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 60; ctx.shadowOffsetY = 25; ctx.fillStyle = '#fff'; rr(-w / 2 - 12, -h / 2 - 12, w + 24, h + 24, 40); ctx.fill(); ctx.shadowColor = 'transparent';
+  rr(-w / 2, -h / 2, w, h, 30); ctx.clip(); drawCover(p.img, p.crop, -w / 2, -h / 2, w, h, zoom);
+  ctx.restore();
+}
+
+function bg(t) {
+  const g = ctx.createRadialGradient(540, 900, 100, 540, 900, 1300); g.addColorStop(0, '#171B24'); g.addColorStop(1, '#06070A'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  const k = kickEnv(t);
+  glow(540 + Math.sin(t * .5) * 300, 1600, 800, 'rgba(46,155,255,1)', .14 + k * .06);
+  glow(540 + Math.cos(t * .4) * 300, 300, 700, 'rgba(255,138,31,1)', .10 + k * .05);
+}
+
+// ---------- CENAS ----------
+function sceneHook(t) {
+  sparks(540, 1000, t, 0); sparks(540, 1000, t, .12); sparks(540, 1000, t, .24);
+  const ign = eOutExpo(prog(t, .35, .7));
+  if (t >= .35) burner(540, 1000, 300 * (1 + .03 * Math.sin(t * 4)), t, 'blue', ign);
+  slam('CHAMA AZUL', .5, t, 380, 220, { g: [C.ice, C.blue] });
+  slam('DO JEITO CERTO 🔥', .9, t, 560, 120);
+  sticker('instalação · manutenção · conserto', 1.4, t, 540, 1420, 40, '#fff', '#111', -.02);
+}
+const DORES = [[3.0, '🔥 chama amarela'], [3.5, '🖤 panela preta'], [4.0, '😤 boca que não acende'], [4.5, '💸 gastando gás à toa']];
+function scenePain(t) {
+  soot(540, 1050, t);
+  burner(540, 1050, 260, t, 'yellow');
+  slam('SEU FOGÃO', 2.5, t, 300, 170);
+  slam('TÁ ASSIM? 😬', 2.5, t, 470, 170, { g: [C.yellow, C.orange] });
+  DORES.forEach(([st, s], i) => sticker(s, st, t, i % 2 ? 690 : 390, 680 + i * 105 + (i > 1 ? 470 : 0), 44, i === 3 ? C.orange : '#fff', '#111', i % 2 ? .04 : -.04));
+  if (t > 5.0) { ctx.fillStyle = `rgba(0,0,0,${.5 * prog(t, 5.0, 5.5)})`; ctx.fillRect(-50, -50, W + 100, H + 100); }
+  slam('ISSO TEM CONSERTO ✅', 5.0, t, 960, 110);
+}
+const SERV = [[6.5, 'vermelho', 'INSTALAÇÃO DE COOKTOP'], [8.5, 'preto', 'CHAMA REGULADA, SEM DESPERDÍCIO'], [10.5, 'inox', 'MANUTENÇÃO DE FOGÃO'], [12.5, 'forno', 'CONSERTO DE FORNO']];
+function sceneServices(t) {
+  if (t < 6.5) {
+    burner(540, 1100, 280, t, 'blue');
+    slam('DEIXA', 6.0, t, 480, 230);
+    slam('COMIGO 💪', 6.0, t, 700, 230, { g: [C.ice, C.blue] });
+    return;
+  }
+  const i = Math.min(3, Math.floor((t - 6.5) / 2)), [st, key, label] = SERV[i], p = PH[key];
+  // fundo: a própria foto desfocada
+  ctx.save(); ctx.filter = 'blur(30px) brightness(.4)'; drawCover(p.img, p.crop, -60, -60, W + 120, H + 120, 1.1); ctx.restore();
+  const k = eOutExpo(prog(t, st, st + .35)), out = eInOut(prog(t, st + 1.85, st + 2.0));
+  const z = 1.0 + .12 * prog(t, st, st + 2);
+  photoCard(p, 540 + (1 - k) * 900 - out * 900, 900, 880, 1080, z, (1 - k) * .12 - .015 + out * -.1);
+  sticker(`0${i + 1} / 04`, st + .05, t, 540, 290, 34, C.blue, '#fff');
+  // faixa do serviço
+  const ls = eOutBack(prog(t, st + .2, st + .45)); if (ls > 0) {
+    const size = fitSize(label, '$px Anton', 80, 860);
+    ctx.save(); ctx.translate(540 - out * 900, 1520); ctx.rotate(-.02); ctx.scale(ls, ls);
+    ctx.font = `${size}px Anton`; const w = ctx.measureText(label).width;
+    ctx.fillStyle = C.orange; rr(-w / 2 - 34, -size * .7, w + 68, size * 1.4, 18); ctx.fill();
+    text(label, 0, 3, `${size}px Anton`, '#111'); ctx.restore();
+  }
+}
+const PQ = [[15.0, 'Atendimento rápido'], [15.4, 'Serviço limpo e caprichado'], [15.8, 'Segurança em 1º lugar'], [16.2, 'Orçamento sem compromisso']];
+function sceneTrust(t) {
+  slam('POR QUE', 14.5, t, 330, 170);
+  slam('ME CHAMAR?', 14.5, t, 500, 170, { g: [C.yellow, C.orange] });
+  PQ.forEach(([st, s], i) => {
+    const a = eOutBack(prog(t, st, st + .3)); if (a <= 0) return;
+    const y = 700 + i * 170, x = 90 + (1 - a) * 1000;
+    ctx.fillStyle = 'rgba(255,255,255,.09)'; rr(x, y, 900, 130, 32); ctx.fill(); ctx.strokeStyle = 'rgba(255,255,255,.18)'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = C.blue; ctx.beginPath(); ctx.arc(x + 75, y + 65, 34, 0, 7); ctx.fill();
+    text('✓', x + 75, y + 68, '900 44px Inter', '#fff');
+    text(s, x + 140, y + 67, `800 ${fitSize(s, '800 $px Inter', 46, 730)}px Inter`, '#fff', 'left');
+  });
+}
+function sceneCTA(t) {
+  burner(540, 470, 190, t, 'blue');
+  slam('PEDE SEU', 17.0, t, 790, 170);
+  slam('ORÇAMENTO 📲', 17.0, t, 960, 170, { g: [C.ice, C.blue] });
+  const b = eOutBack(prog(t, 17.4, 17.7));
+  if (b > 0) {
+    const pulse = 1 + .04 * Math.sin(t * 8);
+    const label = ZAP ? `WhatsApp ${ZAP}` : 'Me chama no direct 📩';
+    ctx.save(); ctx.translate(540, 1170); ctx.scale(b * pulse, b * pulse);
+    ctx.shadowColor = ZAP ? 'rgba(37,211,102,.6)' : 'rgba(46,155,255,.6)'; ctx.shadowBlur = 40;
+    ctx.fillStyle = ZAP ? C.green : C.blue; rr(-430, -80, 860, 160, 80); ctx.fill(); ctx.shadowColor = 'transparent';
+    text(label, 0, 3, `900 ${fitSize(label, '900 $px Inter, ' + EM, 54, 760)}px Inter, ${EM}`, '#fff');
+    ctx.restore();
+  }
+  ctx.globalAlpha = prog(t, 17.9, 18.2);
+  if (NOME) text(NOME, 540, 1340, '900 56px Inter', '#fff', 'center', 6);
+  text(CIDADE ? `📍 ${CIDADE}` : 'orçamento sem compromisso', 540, NOME ? 1420 : 1340, `700 42px Inter, ${EM}`, 'rgba(255,255,255,.8)', 'center', 5);
+  ctx.globalAlpha = 1;
+}
+
+function glitch(R, n, amt) { for (let i = 0; i < n; i++) { const sy = R() * H, h = 8 + R() * 90, off = (R() - .5) * amt; ctx.drawImage(cv, 0, sy, W, h, off, sy, W, h); } }
+
+function render(t) {
+  const R = rng(Math.round(t * 30) * 7919 + 9);
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.filter = 'none';
+  bg(t);
+  const sh = shake(t); ctx.save(); ctx.translate((R() - .5) * 2 * sh, (R() - .5) * 2 * sh + 45); // +45: abaixo da barra do topo do story
+  if (t < 2.5) sceneHook(t);
+  else if (t < 6.0) scenePain(t);
+  else if (t < 14.5) sceneServices(t);
+  else if (t < 17.0) sceneTrust(t);
+  else sceneCTA(t);
+  ctx.restore(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+  for (const [h] of HITS) if (t >= h && t < h + .07) glitch(R, 4, 90);
+  for (const [h, a, dur] of FLASHES) { const d = t - h; if (d >= 0 && d < dur) { ctx.fillStyle = `rgba(255,255,255,${a * (1 - d / dur)})`; ctx.fillRect(0, 0, W, H); } }
+  const v = ctx.createRadialGradient(540, 960, 550, 540, 960, 1250); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.55)'); ctx.fillStyle = v; ctx.fillRect(0, 0, W, H);
+  if (t >= 5.75 && t < 6.0) { ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); }
+  if (t > 19.5) { ctx.fillStyle = `rgba(0,0,0,${prog(t, 19.5, 20)})`; ctx.fillRect(0, 0, W, H); }
+}
+window.render = render; window.DUR = DUR;
+window.ready = Promise.all([imgReady, document.fonts.load('100px Anton'), document.fonts.load('900 80px Inter'), document.fonts.load(`40px ${EM}`)]).then(() => document.fonts.ready);
+const qt = Q.get('t');
+window.ready.then(() => {
+  if (qt !== null) { render(+qt); return; }
+  if (navigator.webdriver) return;
+  const t0 = performance.now(); (function loop() { render(((performance.now() - t0) / 1000) % DUR); requestAnimationFrame(loop); })();
+});
+</script>
+</body>
+</html>
