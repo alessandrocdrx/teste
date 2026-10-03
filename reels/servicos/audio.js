@@ -35,19 +35,17 @@ const pop = (t0, f = 700, amp = .12) => tone(t0, .12, f, f * 1.8, amp, 25);
 const tick = (t0, amp = .12) => { noise(t0, .02, amp, 200, .95); tone(t0, .03, 2500, 0, amp * .5, 120); };
 
 
-// acendedor (tic tic tic) + fwoom da chama
-[0, .12, .24].forEach(t => { noise(t, .015, .5, 300, .97); tone(t, .02, 3200, 0, .15, 150); });
-(function fwoom(t0) { const s = Math.floor(t0 * SR), n = 1.0 * SR; let lp = 0; for (let i = 0; i < n; i++) { const k = i / n, fc = 150 + 1800 * Math.min(1, k * 6) * Math.exp(-k * 2), a = 1 - Math.exp(-6.2832 * fc / SR); lp += a * (rnd() - lp); const e = Math.min(1, k * 25) * Math.exp(-k * 3.5) * .9; add(s + i, lp * e, lp * e * .9); } })(.35);
-k808(.35, 28, .9, .9);
-// chama azul "chiando" de fundo no começo
-noise(.4, 2.1, .04, .4, .3, .5);
+// acendedor (tic tic tic) + fwoom da chama amarela
+[0, .1, .2].forEach(t => { noise(t, .015, .5, 300, .97); tone(t, .02, 3200, 0, .15, 150); });
+(function fwoom(t0) { const s = Math.floor(t0 * SR), n = 1.0 * SR; let lp = 0; for (let i = 0; i < n; i++) { const k = i / n, fc = 150 + 1800 * Math.min(1, k * 6) * Math.exp(-k * 2), a = 1 - Math.exp(-6.2832 * fc / SR); lp += a * (rnd() - lp); const e = Math.min(1, k * 25) * Math.exp(-k * 3.5) * .9; add(s + i, lp * e, lp * e * .9); } })(.3);
+k808(.3, 28, 1, .9); k808(.55, 28, .7, .3); k808(.8, 31, .9, .5); crash(.8, .2);
 
-// ---- batidão: leve até 5.75, completo de 6 a 19.5 ----
+// ---- batidão: leve de 1 a 5.75, completo de 6 a 19.5 ----
 const ROOTS = [33, 33, 36, 31];
 for (let bar = 0; bar < 10; bar++) {
   const b0 = bar * 2, root = ROOTS[bar % 4];
   for (let st = 0; st < 16; st++) {
-    const t = b0 + st * .125; if (t < .5 || t >= 19.5 || (t >= 5.75 && t < 6)) continue;
+    const t = b0 + st * .125; if (t < 1 || t >= 19.5 || (t >= 5.75 && t < 6)) continue;
     const full = t >= 6;
     if (full ? [0, 3, 8, 11].includes(st) : [0, 8].includes(st)) k808(t, st === 11 ? root + 3 : root, full ? 1 : .6, st === 3 || st === 11 ? .35 : .45);
     if ([4, 12].includes(st) && (full || t >= 2.5)) clap(t, full ? .5 : .3);
@@ -57,19 +55,22 @@ for (let bar = 0; bar < 10; bar++) {
 }
 for (let t = 6; t < 19; t += 2) { tone(t + .75, .25, 1975, 0, .06, 12); tone(t + 1.75, .25, 1760, 0, .06, 12); }
 
-// dor: "erro" a cada problema
-whoosh(2.4, .3);
-[3.0, 3.5, 4.0, 4.5].forEach((t, i) => { pop(t, 500 + i * 60, .1); tone(t + .05, .18, 180, 140, .07, 8, 'sq'); });
-ding(5.0, .16); noise(5.0, .4, .3, 9, .3, .3);
+// dores: cada pergunta com um "erro"
+[2.5, 3.0, 3.5, 4.0].forEach((t, i) => { k808(t, 28, .7, .25); tone(t + .03, .2, 200 - i * 10, 140, .08, 7, 'sq'); });
+// antes x depois: cortina + ding
+whoosh(4.7, .45, .8); ding(5.4, .18);
 riser(4.9, 5.75, .3);
-// drop + serviços
-impact(6.0, 1.1);
-[6.5, 8.5, 10.5, 12.5].forEach(t => { whoosh(t - .1, .3, .35); pop(t + .2, 900, .08); });
-// confiança
-impact(14.5, .5);
-[15.0, 15.4, 15.8, 16.2].forEach((t, i) => ding(t, .1 + i * .01));
-// CTA
-impact(17.0, .9); pop(17.4, 800, .14); ding(17.5, .12);
+// drop com a marca
+impact(6.0, 1.2); ding(6.3, .12);
+// serviços: corte em cada foto
+[7.5, 9.0, 10.5, 12.0].forEach(t => { whoosh(t - .15, .32, .3); noise(t, .25, .3, 14, .5, .4); });
+// grade de fotos
+for (let i = 0; i < 4; i++) pop(13.5 + i * .125, 600 + i * 150, .1);
+// por que a Ramalho
+impact(14.5, .5); [14.5, 15.0, 15.5, 16.0].forEach((t, i) => ding(t + .05, .1 + i * .01));
+// CTA: impacto + telefone tocando
+impact(16.5, 1); pop(16.9, 800, .14);
+for (const r0 of [17.2, 18.2]) for (let j = 0; j < 8; j++) { tone(r0 + j * .05, .045, 1400, 0, .06, 30); tone(r0 + j * .05 + .025, .045, 1750, 0, .05, 30); }
 k808(19.5, 33, .8, .9);
 
 // master
